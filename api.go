@@ -17,46 +17,85 @@ type Weather struct {
         Coordinates geocoder.Coordinates `json:"coordinates"`
 
         Condition       string  `json:"condition"`
+        Icon            string  `json:"icon"`
         Temperature     float64 `json:"temperature"`
-        RainProbability float64 `json:"rain_probability"`
+        RainIntensity   float64 `json:"rain_intensity"`
+        BringUmbrella   bool    `json:"bring_umbrella"`
 }
 
-func FindCityCoords(w http.ResponseWriter, req *http.Request) {
+var (
+        api_key = os.Getenv("FORECAST_API_KEY")
+        city_weather = make(chan *Weather)
+        city_information = make(chan *geocoder.Location)
+)
+
+func weatherByCity(w http.ResponseWriter, req *http.Request) {
         city_name := req.URL.Query().Get(":city")
-        city, _ := geocoder.City(city_name)
 
-        res, _ := json.Marshal(cityWeather(city))
-        w.Write(res)
+        go func() {
+                log.Println("Checking city")
+                city, _ := geocoder.City(city_name)
+                city_information <- city
+        }()
+
+        city := <- city_information
+        go cityWeather(city.Coordinates)
+
+        weather := <-city_weather
+        weather.City = city.Name
+        jsonResponse, _ := json.Marshal(weather)
+
+        w.Write(jsonResponse)
 }
 
-func WeatherHandler(w http.ResponseWriter, req *http.Request) {
+func weatherByCoords(w http.ResponseWriter, req *http.Request) {
         lat, _ := strconv.ParseFloat(req.URL.Query().Get(":lat"), 64)
         lng, _ := strconv.ParseFloat(req.URL.Query().Get(":lng"), 64)
-        city, _ := geocoder.Coords(lat, lng)
+        coords := &geocoder.Coordinates{lat, lng}
 
-        log.Println(cityWeather(city))
+        go func() {
+                log.Println("Checking city")
+                city, _ := geocoder.Coords(lat, lng)
+                city_information <- city
+        }()
+
+        go cityWeather(*coords)
+
+        city := <- city_information
+        weather := <-city_weather
+
+        weather.City = city.Name
+        jsonResponse, _ := json.Marshal(weather)
+
+        w.Write(jsonResponse)
 }
 
-func cityWeather(city *geocoder.Location) *Weather {
-        lat := fmt.Sprintf("%f", city.Coordinates.Lat)
-        long := fmt.Sprintf("%f", city.Coordinates.Lng)
-        key := os.Getenv("FORECAST_API_KEY")
+func cityWeather(coords geocoder.Coordinates) {
+        log.Println("Checking weather")
+        lat := fmt.Sprintf("%f", coords.Lat)
+        lng := fmt.Sprintf("%f", coords.Lng)
 
-        f := forecast.Get(key, lat, long, "now")
-        return &Weather{
-                City: city.Name,
-                Coordinates: city.Coordinates,
+        f := forecast.Get(api_key, lat, lng, "now")
+        future_condition := f.Hourly.Data[6]
+        raining := f.Currently.PrecipIntensity > 0.1   ||
+                   f.Currently.PrecipProbability > 0.6 ||
+                   future_condition.PrecipProbability > 0.6
+
+        city_weather <- &Weather{
+                Coordinates: coords,
                 Condition: f.Currently.Summary,
+                Icon: f.Currently.Icon,
                 Temperature: f.Currently.Temperature,
-                RainProbability: f.Currently.PrecipProbability * 100}
+                RainIntensity: f.Currently.PrecipIntensity,
+                BringUmbrella: raining}
 }
 
 func main() {
         m := pat.New()
         port := ":12345"
 
-        m.Get("/weather/:lat,:lng", http.HandlerFunc(WeatherHandler))
-        m.Get("/weather/:city", http.HandlerFunc(FindCityCoords))
+        m.Get("/weather/:city", http.HandlerFunc(weatherByCity))
+        m.Get("/weather/:lat,:lng", http.HandlerFunc(weatherByCoords))
         http.Handle("/", m)
 
         log.Println("Listening in", port)
