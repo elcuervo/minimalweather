@@ -3,8 +3,8 @@ package main
 import (
 	"encoding/json"
 	"log"
-	"os"
 	"net/http"
+	"os"
 	"strconv"
 
 	"github.com/bmizerany/pat"

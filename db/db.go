@@ -8,7 +8,7 @@ import (
 )
 
 var (
-	server   = os.Getenv("REDIS_URL")
+	server   = os.Getenv("OPENREDIS_URL")
 	password = ""
 )
 
