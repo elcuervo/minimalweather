@@ -11,10 +11,6 @@ import (
 	"github.com/elcuervo/minimalweather/weather"
 )
 
-var (
-	redis_url = os.Getenv("REDIS_URL")
-)
-
 type CityWeather struct {
 	Name        string           `json:"name"`
 	Coordinates city.Coordinates `json:"coordinates"`
