@@ -7,6 +7,7 @@ import (
 	"os"
 
 	"github.com/elcuervo/minimalweather/city"
+	"github.com/elcuervo/minimalweather/db"
 	"github.com/garyburd/redigo/redis"
 	forecast "github.com/mlbright/forecast/v2"
 )
@@ -14,7 +15,7 @@ import (
 const prefix = "mw:weather:"
 
 var (
-	c, err  = redis.Dial("tcp", ":6379")
+	c       = db.Pool.Get()
 	api_key = os.Getenv("FORECAST_API_KEY")
 )
 

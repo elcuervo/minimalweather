@@ -6,12 +6,13 @@ import (
 	"log"
 
 	"github.com/elcuervo/geocoder"
+	"github.com/elcuervo/minimalweather/db"
 	"github.com/garyburd/redigo/redis"
 )
 
 const prefix = "mw:city:"
 
-var c, err = redis.Dial("tcp", ":6379")
+var c = db.Pool.Get()
 
 type Coordinates geocoder.Coordinates
 
