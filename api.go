@@ -7,9 +7,9 @@ import (
 	"os"
 	"strconv"
 
-	"github.com/bmizerany/pat"
 	"github.com/elcuervo/minimalweather/city"
 	"github.com/elcuervo/minimalweather/weather"
+	"github.com/gorilla/mux"
 )
 
 type CityWeather struct {
@@ -30,9 +30,9 @@ func outputWeatherAsJSON(current_city city.City, current_weather weather.Weather
 }
 
 func weatherByCity(w http.ResponseWriter, req *http.Request) {
-	log.Println("By Name")
+	city_name := mux.Vars(req)["city"]
 
-	city_name := req.URL.Query().Get(":city")
+	log.Println("By Name:", city_name)
 
 	current_city := <-city.FindByName(city_name)
 	current_weather := <-weather.GetWeather(current_city.Coords)
@@ -43,10 +43,12 @@ func weatherByCity(w http.ResponseWriter, req *http.Request) {
 }
 
 func weatherByCoords(w http.ResponseWriter, req *http.Request) {
-	log.Println("By Coords")
+	vars := mux.Vars(req)
 
-	lat, _ := strconv.ParseFloat(req.URL.Query().Get(":lat"), 64)
-	lng, _ := strconv.ParseFloat(req.URL.Query().Get(":lng"), 64)
+	lat, _ := strconv.ParseFloat(vars["lat"], 64)
+	lng, _ := strconv.ParseFloat(vars["lng"], 64)
+
+	log.Println("By Coords:", lat, lng)
 
 	coords := city.Coordinates{lat, lng}
 	city_chan := city.FindByCoords(coords)
@@ -59,12 +61,14 @@ func weatherByCoords(w http.ResponseWriter, req *http.Request) {
 }
 
 func main() {
-	m := pat.New()
+	r := mux.NewRouter()
 	port := ":" + os.Getenv("PORT")
 
-	m.Get("/weather/:city", http.HandlerFunc(weatherByCity))
-	m.Get("/weather/:lat/:lng", http.HandlerFunc(weatherByCoords))
-	http.Handle("/", m)
+	r.HandleFunc("/weather/{city}", weatherByCity).Methods("GET")
+	r.HandleFunc("/weather/{lat}/{lng}", weatherByCoords).Methods("GET")
+	r.PathPrefix("/").Handler(http.FileServer(http.Dir("./public/")))
+
+	http.Handle("/", r)
 
 	log.Println("Listening in", port)
 	err := http.ListenAndServe(port, nil)

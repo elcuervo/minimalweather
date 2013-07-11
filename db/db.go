@@ -1,7 +1,6 @@
 package db
 
 import (
-	"log"
 	"os"
 	"strings"
 	"time"
