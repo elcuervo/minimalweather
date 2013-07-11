@@ -1,6 +1,7 @@
 package db
 
 import (
+	"log"
 	"os"
 	"strings"
 	"time"
@@ -20,11 +21,14 @@ var Pool = &redis.Pool{
 	MaxIdle:     10,
 	IdleTimeout: 240 * time.Second,
 	Dial: func() (redis.Conn, error) {
+		log.Println("Connected to:", redis_url)
 		c, err := redis.Dial("tcp", redis_url)
 		if err != nil {
 			return nil, err
 		}
+
 		if len(password) > 0 {
+			log.Println("With password:", password)
 			if _, err := c.Do("AUTH", password); err != nil {
 				c.Close()
 				return nil, err
