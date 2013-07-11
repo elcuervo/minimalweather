@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"log"
+	"os"
 	"net/http"
 	"strconv"
 
@@ -59,7 +60,7 @@ func weatherByCoords(w http.ResponseWriter, req *http.Request) {
 
 func main() {
 	m := pat.New()
-	port := ":12345"
+	port := ":" + os.Getenv("PORT")
 
 	m.Get("/weather/:city", http.HandlerFunc(weatherByCity))
 	m.Get("/weather/:lat/:lng", http.HandlerFunc(weatherByCoords))
