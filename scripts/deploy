@@ -14,15 +14,20 @@ info() {
 }
 
 warn() {
+  echo
   msg "$WARN_COLOR" "$1"
+  echo
 }
 
 error() {
+  echo
   msg "$ERROR_COLOR" "$1"
 }
 
 ok() {
+  echo
   msg "$OK_COLOR" "$1"
+  echo
 }
 
 ready() {
@@ -35,10 +40,8 @@ check_for_multi_buildpack() {
   buildpack_url=$(heroku config:get BUILDPACK_URL)
 
   if [[ $buildpack_url != $multi_buildpack_url ]]; then
-    echo
     heroku config:add BUILDPACK_URL=$multi_buildpack_url > /dev/null
     warn "BUILDPACK_URL updated! to $multi_buildpack_url"
-    echo
   else
     ready
   fi
@@ -64,10 +67,8 @@ check_for_netrc_buildpack() {
       ;;
 
     *)
-      echo
       echo -e "$netrc_buildpack_url\n$(cat $buildpacks_file)" > "$buildpacks_file"
       warn "Added netrc buildpack to $buildpacks_file"
-      echo
   esac
 }
 
@@ -76,10 +77,8 @@ check_for_user_env_compile() {
   heroku labs | grep user-env-compile | grep + > /dev/null
 
   if [ $? -ne 0 ]; then
-    echo
     heroku labs:enable user-env-compile > /dev/null
     warn "user-env-compile added to heroku labs"
-    echo
   else
     ready
   fi
@@ -97,15 +96,18 @@ check_for_github_token() {
     read token
     heroku config:add GITHUB_AUTH_TOKEN=$token > /dev/null
     warn "Token added to the ENV"
-    echo
   else
     ready
   fi
 }
 
+push_to_github() {
+  ok "Pushing to GitHub"
+  git push origin master
+}
+
 deploy_application() {
   ok "Deploying application"
-  echo
   git push heroku master
 }
 
@@ -114,7 +116,7 @@ check_for_netrc_buildpack
 check_for_user_env_compile
 check_for_github_token
 
+push_to_github
 deploy_application
-
 
 # vim: ft=bash
