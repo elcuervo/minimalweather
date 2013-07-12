@@ -1,0 +1,39 @@
+@font-face {
+  font-family: 'WeatherFont';
+  src: url('/fonts/meteocons-webfont.eot');
+  src: url('/fonts/meteocons-webfont.eot?#iefix') format('embedded-opentype'),
+    url('/fonts/meteocons-webfont.woff') format('woff'),
+    url('/fonts/meteocons-webfont.ttf') format('truetype'),
+    url('/fonts/meteocons-webfont.svg#MeteoconsRegular') format('svg');
+}
+
+body {
+  background: rgb(239, 232, 217);
+  font-family: sans-serif;
+}
+
+a {
+  color: grey;
+  text-decoration: none;
+}
+
+ul {
+  padding: 0;
+  margin: 0;
+}
+
+#twitter_account {
+  text-align: center
+}
+
+.clear {
+  clear: both;
+}
+
+.weather {
+  font-family: 'WeatherFont';
+}
+
+#weather_icon {
+  font-size: 15em
+}

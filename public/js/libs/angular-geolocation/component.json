@@ -1,0 +1,22 @@
+{
+  "name": "angular-geolocation",
+  "version": "0.0.0",
+  "main": "geolocation.js",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "components"
+  ],
+  "dependencies": {
+    "angular": "~1.x"
+  },
+  "gitHead": "351c8593acd5a944e41cf6f81503a04ff1eecf6d",
+  "_id": "angular-geolocation@0.0.1",
+  "readme": "ERROR: No README.md file found!",
+  "description": "ERROR: No README.md file found!",
+  "commit": "351c8593acd5a944e41cf6f81503a04ff1eecf6d",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/carlo-colombo/angular-geolocation.git"
+  }
+}
