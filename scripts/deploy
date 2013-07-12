@@ -6,28 +6,25 @@ ERROR_COLOR="\033[31;01m"
 WARN_COLOR="\033[33;01m"
 
 msg() {
+  echo
   echo -en "$1 * $2 $NO_COLOR"
+  echo
 }
 
 info() {
-  msg "$NO_COLOR" "$1"
+  echo -en "$NO_COLOR * $1 $NO_COLOR"
 }
 
 warn() {
-  echo
   msg "$WARN_COLOR" "$1"
-  echo
 }
 
 error() {
-  echo
   msg "$ERROR_COLOR" "$1"
 }
 
 ok() {
-  echo
   msg "$OK_COLOR" "$1"
-  echo
 }
 
 ready() {
@@ -62,7 +59,6 @@ check_for_netrc_buildpack() {
 
     2)
       error "Missing $buildpacks_file file"
-      echo
       exit 1
       ;;
 
@@ -90,7 +86,6 @@ check_for_github_token() {
   github_auth_token=$(heroku config:get GITHUB_AUTH_TOKEN)
 
   if [[ $github_auth_token == "" ]]; then
-    echo
     error "No GitHub token in ENV"
     echo -n "GitHub token: "
     read token
