@@ -7,8 +7,6 @@ all:
 	@mkdir -p bin/
 	@echo "$(OK_COLOR)==> Installing dependencies$(NO_COLOR)"
 	@go get -d -v ./...
-	@echo "$(OK_COLOR)==> Building$(NO_COLOR)"
-	@./scripts/build.sh
 
 format:
 	go fmt ./...
@@ -18,4 +16,4 @@ test:
 	@go list -f '{{range .TestImports}}{{.}} {{end}}' ./... | xargs -n1 go get -d
 	go test ./...
 
-.PHONY: all format test
+PHONY: all format test
