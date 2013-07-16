@@ -1,12 +1,3 @@
-@font-face {
-  font-family: 'WeatherFont';
-  src: url('/fonts/meteocons-webfont.eot');
-  src: url('/fonts/meteocons-webfont.eot?#iefix') format('embedded-opentype'),
-    url('/fonts/meteocons-webfont.woff') format('woff'),
-    url('/fonts/meteocons-webfont.ttf') format('truetype'),
-    url('/fonts/meteocons-webfont.svg#MeteoconsRegular') format('svg');
-}
-
 body {
   background: rgb(239, 232, 217);
   margin: auto;
@@ -24,6 +15,10 @@ ul {
   margin: 0;
 }
 
+#container {
+  padding: 3em
+}
+
 #twitter_account {
   text-align: center
 }
@@ -32,10 +27,16 @@ ul {
   clear: both;
 }
 
-.weather {
-  font-family: 'WeatherFont';
+.temperature {
+  font-size: 14em;
+  font-weight: bold;
 }
 
 #weather_icon {
   font-size: 15em;
+  height: 1.2em
+}
+
+.weather_scale {
+  font-size: 14em;
 }

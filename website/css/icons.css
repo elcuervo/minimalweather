@@ -1,0 +1,86 @@
+@font-face {
+  font-family: 'weather';
+  src:url('/fonts/weather.eot');
+  src:url('/fonts/weather.eot?#iefix') format('embedded-opentype'),
+  url('/fonts/weather.woff') format('woff'),
+  url('/fonts/weather.ttf') format('truetype'),
+  url('/fonts/weather.svg#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* Use the following CSS code if you want to use data attributes for inserting your icons */
+[data-icon]:before {
+  font-family: 'weather';
+  content: attr(data-icon);
+  speak: none;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Use the following CSS code if you want to have a class per icon */
+/*
+Instead of a list of all class selectors,
+you can use the generic selector below, but it's slower:
+[class*="icon-"] {
+ */
+  .weather,
+  .icon-wind,
+  .icon-sleet,
+  .icon-thunderstorm,
+  .icon-snow,
+  .icon-hail,
+  .icon-cloudy,
+  .icon-rain,
+  .icon-fog,
+  .icon-clear-day,
+  .icon-clear-night,
+  .icon-partly-cloudy-day,
+  .icon-partly-cloudy-night,
+
+  .icon-,
+  .icon-compass,
+  .icon-none,
+  .icon-celsius,
+  .icon-cahrenheit,
+  .icon-target,
+  .icon-cancel,
+  .icon-umbrella,
+  .icon-twitter,
+  .icon-github {
+    font-family: 'weather';
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+}
+
+.icon-clear-day:before { content: "\e001"; }
+.icon-clear-night:before { content: "\e002"; }
+.icon-partly-cloudy-night:before { content: "\e004"; }
+.icon-partly-cloudy-day:before { content: "\e000"; }
+.icon-snow:before { content: "\e00c"; }
+.icon-rain:before { content: "\e008"; }
+.icon-hail:before { content: "\e00c"; }
+.icon-:before { content: "\e00d"; }
+.icon-compass:before { content: "\e00d"; }
+.icon-cloudy:before { content: "\e00e"; }
+.icon-thunderstorm:before { content: "\e00f"; }
+.icon-sleet:before { content: "\e010"; }
+.icon-none:before { content: "\e011"; }
+.icon-celsius:before { content: "\e012"; }
+.icon-fahrenheit:before { content: "\e013"; }
+.icon-fog:before { content: "\e014"; }
+.icon-thermometer:before { content: "\e01e"; }
+.icon-wind:before { content: "\e020"; }
+.icon-target:before { content: "\e02f"; }
+.icon-cancel:before { content: "\e030"; }
+.icon-umbrella:before { content: "\e031"; }
+.icon-twitter:before { content: "\e032"; }
+.icon-github:before { content: "\e033"; }

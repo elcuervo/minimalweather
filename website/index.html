@@ -3,36 +3,37 @@
 <head>
   <meta charset="UTF-8">
   <link rel="stylesheet" href="http://yui.yahooapis.com/combo?pure/0.2.0/base-min.css&pure/0.2.0/grids-min.css">
+  <link rel="stylesheet" href="/css/icons.css" />
   <link rel="stylesheet" href="/css/styles.css" />
   <title>Minimal Weather</title>
 </head>
 <body ng-controller="MainController">
 
-  <div class="pure-g-r">
+  <div id="container" class="pure-g-r">
     <div class="pure-u-1-3">
 
-      <h1>Minimal Weather</h1>
-      <form ng-submit="search()">
-        City:
-        <input type="text" name="name" ng-min-length="2" ng-model="citySearch" ng-trim="true" required/>
-        <button type="button" ng-click="clear()">X</button>
-      </form>
+      <div>
+        <div class="pure-g-r">
+          <div class="pure-u-1-1" id="weather_icon">
+            <span class="icon-{{city.weather.icon}}"></span>
+          </div>
 
-      <div ng-if="city.weather">
-
-        <div id="weather_icon">
-          <span class="weather {{city.weather.icon}}">
-            {{city.weather.icon|asWeather}}
-          </span>
+          <div class="pure-g-r" id="weather_temperature" ng-if="city.weather.temperature">
+            <span class="pure-u-1-2 temperature"> {{city.weather.temperature|number:0}} </span>
+            <span class="pure-u-1-3 weather_scale icon-celsius"></span>
+          </div>
+          <span class="pure-u-1-2 icon-umbrella" ng-if="city.weather.bring_umbrella"></span>
         </div>
 
-        <div ng-if="city.weather.temperature">
-          {{city.weather.temperature|number:0}}C
-          <p>
-            The temperature in {{city.name}} is {{city.weather.temperature}} celsius
-            and the current condition is: {{city.weather.condition}}
-          </p>
-        </div>
+
+        <form ng-submit="search()">
+          <input type="text" name="name" ng-min-length="2" ng-model="city.name" ng-trim="true" required/>
+          <button type="button" ng-click="clear()" class="icon-cancel"></button>
+        </form>
+
+
+        <span class="icon-twitter"></span>
+        <span class="icon-github"></span>
 
       </div>
 
