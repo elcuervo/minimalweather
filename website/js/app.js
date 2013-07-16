@@ -1,63 +1,39 @@
 "use strict";
 
+var weatherAsIcon = function(text) {
+  var icon = ")";
+
+  switch(text) {
+    case 'loading':             icon = "("; break;
+
+    case 'wind':                icon = "F"; break;
+    case 'sleet':               icon = "$"; break;
+    case 'thunderstorm':        icon = "&"; break;
+    case 'snow':
+    case 'hail':                icon = "#"; break;
+    case 'cloudy':              icon = "%"; break;
+    case 'rain':                icon = "8"; break;
+    case 'fog':                 icon = "M"; break;
+    case 'clear-day':           icon = "1"; break;
+    case 'clear-night':         icon = "2"; break;
+    case 'partly-cloudy-day':   icon = "3"; break;
+    case 'partly-cloudy-night': icon = "4"; break;
+    default:                    icon = "1";
+  }
+
+  return icon;
+};
+
 angular.module("weather", []);
-
-angular.module("weather", []).filter("asWeather", function() {
-  return function(text) {
-    var nightTime = false;
-    var icon = ")";
-
-    //, wind, , ,
-    //, , or tornado
-
-    switch(text) {
-      case 'sleet':
-        icon = "X";
-        break;
-      case 'thunderstorm':
-        icon = "Z";
-        break;
-      case 'snow':
-      case 'hail':
-        icon = "W";
-        break;
-      case 'cloudy':
-        icon = "Y";
-        break;
-      case 'rain':
-        icon = "R";
-        break;
-      case 'fog':
-        icon = "E";
-        break;
-      case 'clear-day':
-        icon = "B";
-        break;
-      case 'clear-night':
-        icon = "C";
-        break;
-      case 'partly-cloudy-day':
-        icon = "H";
-        break;
-      case 'partly-cloudy-night':
-        icon = "I";
-        break;
-      default:
-        icon = "B";
-
-    }
-    return icon;
-  };
-});
-
+angular.module("weather", []).filter("asWeather", function() { return weatherAsIcon; });
 
 var minimalweather = angular.module("minimalweather", [
-    "ngResource", "ngCookies", "ngGeolocation", "weather"
+  "ngResource", "ngCookies", "ngGeolocation", "weather"
 ]);
 
 minimalweather.factory("Weather", function($resource) {
   return {
-    byName: $resource("/weather/:city", { city: "@city" }),
+    byName:   $resource("/weather/:city", { city: "@city" }),
     byCoords: $resource("/weather/:lat/:lng", { lat: "@lat", lng: "@lng" })
   }
 })
@@ -88,6 +64,8 @@ var MainController = function($scope, $resource, $cookieStore, Weather, geolocat
       });
     }
   }
+
+  $scope.city = { weather: { icon: "loading" } };
 
   locateVisitor();
 

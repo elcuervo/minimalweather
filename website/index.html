@@ -2,27 +2,43 @@
 <html lang="en" ng-app="minimalweather" data-framework="angularjs">
 <head>
   <meta charset="UTF-8">
+  <link rel="stylesheet" href="http://yui.yahooapis.com/combo?pure/0.2.0/base-min.css&pure/0.2.0/grids-min.css">
   <link rel="stylesheet" href="/css/styles.css" />
   <title>Minimal Weather</title>
 </head>
 <body ng-controller="MainController">
-  <h1>Minimal Weather</h1>
-  <form ng-submit="search()">
-    City:
-    <input type="text" name="name" ng-min-length="2" ng-model="citySearch" ng-trim="true" required/>
-    <button type="button" ng-click="clear()">X</button>
-  </form>
 
-  <div ng-if="city.name">
-    <div id="weather_icon">
-      <span class="weather">{{city.weather.icon|asWeather}}</span>
+  <div class="pure-g-r">
+    <div class="pure-u-1-3">
+
+      <h1>Minimal Weather</h1>
+      <form ng-submit="search()">
+        City:
+        <input type="text" name="name" ng-min-length="2" ng-model="citySearch" ng-trim="true" required/>
+        <button type="button" ng-click="clear()">X</button>
+      </form>
+
+      <div ng-if="city.weather">
+
+        <div id="weather_icon">
+          <span class="weather {{city.weather.icon}}">
+            {{city.weather.icon|asWeather}}
+          </span>
+        </div>
+
+        <div ng-if="city.weather.temperature">
+          {{city.weather.temperature|number:0}}C
+          <p>
+            The temperature in {{city.name}} is {{city.weather.temperature}} celsius
+            and the current condition is: {{city.weather.condition}}
+          </p>
+        </div>
+
+      </div>
+
     </div>
-    {{city.weather.temperature|number:0}}C
-    <p>
-      The temperature in {{city.name}} is {{city.weather.temperature}} celsius
-      and the current condition is: {{city.weather.condition}}
-    </p>
   </div>
+
 
   <script src="/js/libs/angular-unstable/angular.js"></script>
   <script src="/js/libs/angular-resource/angular-resource.js"></script>

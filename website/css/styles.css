@@ -9,6 +9,8 @@
 
 body {
   background: rgb(239, 232, 217);
+  margin: auto;
+  text-align: center;
   font-family: sans-serif;
 }
 
@@ -35,5 +37,5 @@ ul {
 }
 
 #weather_icon {
-  font-size: 15em
+  font-size: 15em;
 }
