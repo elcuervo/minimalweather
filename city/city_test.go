@@ -47,3 +47,10 @@ func TestRetreiveFromCache(t *testing.T) {
 
 	ClearCache()
 }
+
+func TestWrongCity(t *testing.T) {
+	assert := asserts.NewTestingAsserts(t, true)
+
+	city := <-FindByName("Blarjs223")
+	assert.NotNil(city.Error, "The city should not be right")
+}

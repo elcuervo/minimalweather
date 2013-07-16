@@ -37,9 +37,12 @@ func weatherByCity(w http.ResponseWriter, req *http.Request) {
 	current_city := <-city.FindByName(city_name)
 	current_weather := <-weather.GetWeather(current_city.Coords)
 
-	out := outputWeatherAsJSON(current_city, current_weather)
-
-	w.Write(out)
+	if current_city.Error != nil {
+		http.NotFound(w, req)
+	} else {
+		out := outputWeatherAsJSON(current_city, current_weather)
+		w.Write(out)
+	}
 }
 
 func weatherByCoords(w http.ResponseWriter, req *http.Request) {

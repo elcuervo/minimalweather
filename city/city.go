@@ -19,6 +19,7 @@ type Coordinates geocoder.Coordinates
 type City struct {
 	Name   string
 	Coords Coordinates
+	Error  error
 }
 
 func ClearCache() {
@@ -79,31 +80,36 @@ func findCity(l LookupInformation, out chan City) {
 		out <- location
 	} else {
 		var (
-			city   *geocoder.Location
-			coords Coordinates
+			city     *geocoder.Location
+			location *City
+			err      error
+			coords   Coordinates
 		)
 
 		switch {
 		case l.Name != "":
-			city, _ = geocoder.City(l.Name)
+			city, err = geocoder.City(l.Name)
 
 		case l.Coords.Lng != 0.0 || l.Coords.Lat != 0.0:
-			city, _ = geocoder.Coords(l.Coords.Lat, l.Coords.Lng)
+			city, err = geocoder.Coords(l.Coords.Lat, l.Coords.Lng)
 
 		default:
 			panic("OMFG")
 		}
 
-		log.Printf("Checking city: %s\n", city.Name)
+		if err != nil {
+			location = &City{Name: "Unknown", Error: err}
+		} else {
+			log.Printf("Checking city: %s\n", city.Name)
+			coords = Coordinates{city.Coordinates.Lat, city.Coordinates.Lng}
+			location = &City{
+				Coords: coords,
+				Name:   city.Name}
 
-		coords = Coordinates{city.Coordinates.Lat, city.Coordinates.Lng}
-		location := &City{
-			Coords: coords,
-			Name:   city.Name}
+		}
 
 		jsonResponse, _ := json.Marshal(location)
-
-		_, err := c.Do("SET", l.Key(), jsonResponse)
+		_, err = c.Do("SET", l.Key(), jsonResponse)
 
 		if err != nil {
 			panic(err)
