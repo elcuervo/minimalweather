@@ -68,7 +68,7 @@ func main() {
 	port := ":" + os.Getenv("PORT")
 
 	r.HandleFunc("/weather/{city}", weatherByCity).Methods("GET")
-	r.HandleFunc("/weather/{lat}/{lng}", weatherByCoords).Methods("GET")
+	r.HandleFunc("/weather/{lat},{lng}", weatherByCoords).Methods("GET")
 	r.PathPrefix("/").Handler(http.FileServer(http.Dir("./website/")))
 
 	http.Handle("/", r)
