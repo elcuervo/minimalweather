@@ -86,16 +86,11 @@ func findCity(l LookupInformation, out chan City) {
 			coords   Coordinates
 		)
 
-		switch {
-		case l.Name != "":
+                if l.Name != "" {
 			city, err = geocoder.City(l.Name)
-
-		case l.Coords.Lng != 0.0 || l.Coords.Lat != 0.0:
+                } else {
 			city, err = geocoder.Coords(l.Coords.Lat, l.Coords.Lng)
-
-		default:
-			panic("OMFG")
-		}
+                }
 
 		if err != nil {
 			location = &City{Name: "Unknown", Error: err}

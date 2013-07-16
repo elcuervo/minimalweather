@@ -32,7 +32,7 @@ var minimalweather = angular.module("minimalweather", [
 minimalweather.factory("Weather", function($resource, $http) {
   return {
     byName:   $resource("/weather/:city", { city: "@city" }),
-    byCoords: $resource("/weather/:lat,:lng", { lat: "@lat", lng: "@lng" })
+    byCoords: $resource("/weather/:lat/:lng", { lat: "@lat", lng: "@lng" })
   }
 });
 
