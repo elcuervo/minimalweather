@@ -7,39 +7,55 @@
   <link rel="stylesheet" href="/css/styles.css" />
   <title>Minimal Weather</title>
 </head>
-<body ng-controller="MainController">
+<body ng-cloak ng-controller="MainController">
 
   <div id="container" class="pure-g-r">
-    <div class="pure-u-1-3">
+    <div class="pure-u-1-2">
 
-      <div>
-        <div class="pure-g-r">
+      <div class="{{city.weather.icon && 'animated fadeIn'}}">
+        <div id="weather_conditions" class="pure-g-r">
           <div class="pure-u-1-1" id="weather_icon">
-            <span class="icon-{{city.weather.icon}}"></span>
+            <div class="icon-{{city.weather.icon}}"></div>
           </div>
 
-          <div class="pure-g-r" id="weather_temperature" ng-if="city.weather.temperature">
-            <span class="pure-u-1-2 temperature"> {{city.weather.temperature|number:0}} </span>
-            <span class="pure-u-1-3 weather_scale icon-celsius"></span>
+          <div class="pure-g-r" id="weather_temperature" ng-show="city.weather.temperature">
+            <span class="temperature" ng-bind="city.weather.temperature|number:0"></span>
+            <span class="weather_scale">&deg;C</span>
+            <a class="weather bring_umbrella"
+              ng-show="city.weather.bring_umbrella"
+              title="It's going to rain at some point today. You should get your umbrella">
+              &#xe031;
+            </a>
           </div>
-          <span class="pure-u-1-2 icon-umbrella" ng-if="city.weather.bring_umbrella"></span>
         </div>
 
-
         <form ng-submit="search()">
-          <input type="text" name="name" ng-min-length="2" ng-model="city.name" ng-trim="true" required/>
-          <button type="button" ng-click="clear()" class="icon-cancel"></button>
+          <input id="city_name" type="text" name="name" ng-min-length="2" ng-model="city.name" ng-trim="true" required/>
         </form>
 
-
-        <span class="icon-twitter"></span>
-        <span class="icon-github"></span>
-
       </div>
+
+      <footer>
+        <div class="social">
+          <a href=""> <span class="icon-twitter"></span> </a>
+          <a href="https://github.com/elcuervo/minimalweather"> <span class="icon-github"></span> </a>
+        </div>
+      </footer>
 
     </div>
   </div>
 
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-33584289-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+     var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+     ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+     })();
+  </script>
 
   <script src="/js/libs/angular-unstable/angular.js"></script>
   <script src="/js/libs/angular-unstable/angular-resource.js"></script>

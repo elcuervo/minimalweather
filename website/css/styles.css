@@ -1,18 +1,90 @@
+html{
+  background-color: #d55150;
+  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#d55150), to(#e47d43));
+  background: -webkit-linear-gradient(top, #d55150, #e47d43);
+  background: -moz-linear-gradient(top, #d55150, #e47d43);
+  background: -ms-linear-gradient(top, #d55150, #e47d43);
+  background: -o-linear-gradient(top, #d55150, #e47d43);
+  min-height: 100%;
+}
+
 body {
-  background: rgb(239, 232, 217);
+  -webkit-backface-visibility: hidden;
   margin: auto;
+  height: 100%;
+  color: white;
   text-align: center;
   font-family: sans-serif;
 }
 
 a {
-  color: grey;
+  color: white;
   text-decoration: none;
 }
+
+[ng\:cloak], [ng-cloak], .ng-cloak {
+  display: none !important;
+}
+
+.icon-github:hover { color: black }
+.icon-twitter:hover { color: #1ab2e8 }
 
 ul {
   padding: 0;
   margin: 0;
+}
+
+input, button {
+  outline: none;
+  border: 0;
+  background: transparent;
+  color: white;
+  font-size: 3em;
+  text-align: center
+}
+
+footer {
+  padding: 2em
+}
+
+.animated {
+  -webkit-animation-duration: 1s;
+  -moz-animation-duration: 1s;
+  -o-animation-duration: 1s;
+  animation-duration: 1s;
+
+  -webkit-animation-fill-mode: both;
+  -moz-animation-fill-mode: both;
+  -o-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+@-webkit-keyframes fadeIn {
+  0% {opacity: 0;}
+  100% {opacity: 1;}
+}
+
+@-moz-keyframes fadeIn {
+  0% {opacity: 0;}
+  100% {opacity: 1;}
+}
+
+@-o-keyframes fadeIn {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
+}
+
+@keyframes fadeIn {
+  0% {opacity: 0;}
+  100% {opacity: 1;}
+}
+
+.fadeIn {
+  -webkit-animation-iteration-count: 1;
+  -webkit-animation-name: fadeIn;
+  -moz-animation-name: fadeIn;
+  -o-animation-name: fadeIn;
+  animation-name: fadeIn;
 }
 
 #container {
@@ -28,15 +100,32 @@ ul {
 }
 
 .temperature {
-  font-size: 14em;
-  font-weight: bold;
+  font-size: 10em;
+}
+
+.social {
+  font-size: 2em
 }
 
 #weather_icon {
-  font-size: 15em;
+  font-size: 20em;
   height: 1.2em
 }
 
+#weather_conditions {
+  height: 35em;
+}
+
+#city_name:hover {
+  color: black;
+  cursor: pointer
+}
+
+.bring_umbrella {
+  font-size: 2em;
+  cursor: help;
+}
+
 .weather_scale {
-  font-size: 14em;
+  font-size: 10em;
 }

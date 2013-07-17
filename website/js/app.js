@@ -37,6 +37,8 @@ minimalweather.factory("Weather", function($resource, $http) {
 });
 
 var MainController = function($scope, $resource, $cookieStore, Weather, geolocation) {
+  $scope.loading = true;
+
   var locateVisitor = function() {
     var currentCity = $cookieStore.get("currentCity");
 
@@ -46,6 +48,8 @@ var MainController = function($scope, $resource, $cookieStore, Weather, geolocat
       var city = Weather.byCoords.get({ lat: lat, lng: lng });
 
       console.log("Loaded from cookie cache:", lat, lng);
+
+      city.$then(function() { $scope.loading = false; });
 
       $scope.city = city;
     } else {
@@ -57,6 +61,7 @@ var MainController = function($scope, $resource, $cookieStore, Weather, geolocat
         console.log("Seek for geolocation:", lat, lng);
 
         city.$then(function() { $cookieStore.put("currentCity", city) });
+        city.$then(function() { $scope.loading = false; });
 
         $scope.city = city;
       });
@@ -72,10 +77,12 @@ var MainController = function($scope, $resource, $cookieStore, Weather, geolocat
   }
 
   $scope.search = function() {
+    $scope.loading = true;
     var city = Weather.byName.get({ city: this.city.name });
     console.log("Searching by city name:", this.city.name);
 
     city.$then(function() { $cookieStore.put("currentCity", city) });
+    city.$then(function() { $scope.loading = false; });
 
     $scope.city = city;
   }
