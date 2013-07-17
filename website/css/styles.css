@@ -12,6 +12,7 @@ body {
   -webkit-backface-visibility: hidden;
   margin: auto;
   height: 100%;
+  font-size: 80%;
   color: white;
   text-align: center;
   font-family: sans-serif;

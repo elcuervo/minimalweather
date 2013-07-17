@@ -26,7 +26,7 @@ angular.module("weather", []);
 angular.module("weather", []).filter("asWeather", function() { return weatherAsIcon; });
 
 var minimalweather = angular.module("minimalweather", [
-  "ngResource", "ngCookies", "ngGeolocation", "weather"
+  "ngResource", "LocalStorageModule", "ngGeolocation", "weather"
 ]);
 
 minimalweather.factory("Weather", function($resource, $http) {
@@ -36,18 +36,18 @@ minimalweather.factory("Weather", function($resource, $http) {
   }
 });
 
-var MainController = function($scope, $resource, $cookieStore, Weather, geolocation) {
+var MainController = function($scope, $resource, localStorageService, Weather, geolocation) {
   $scope.loading = true;
 
   var locateVisitor = function() {
-    var currentCity = $cookieStore.get("currentCity");
+    var currentCity = localStorageService.get("currentCity");
 
     if(currentCity && currentCity.coordinates) {
       var lat = currentCity.coordinates.lat;
       var lng = currentCity.coordinates.lng;
       var city = Weather.byCoords.get({ lat: lat, lng: lng });
 
-      console.log("Loaded from cookie cache:", lat, lng);
+      console.log("Loaded from cache:", lat, lng);
 
       city.$then(function() { $scope.loading = false; });
 
@@ -60,7 +60,7 @@ var MainController = function($scope, $resource, $cookieStore, Weather, geolocat
 
         console.log("Seek for geolocation:", lat, lng);
 
-        city.$then(function() { $cookieStore.put("currentCity", city) });
+        city.$then(function() { localStorageService.add("currentCity", city) });
         city.$then(function() { $scope.loading = false; });
 
         $scope.city = city;
@@ -72,7 +72,7 @@ var MainController = function($scope, $resource, $cookieStore, Weather, geolocat
 
   $scope.clear = function() {
     console.log("Deleted cache");
-    $cookieStore.remove("currentCity");
+    localStorageService.remove("currentCity");
     locateVisitor();
   }
 
@@ -81,7 +81,7 @@ var MainController = function($scope, $resource, $cookieStore, Weather, geolocat
     var city = Weather.byName.get({ city: this.city.name });
     console.log("Searching by city name:", this.city.name);
 
-    city.$then(function() { $cookieStore.put("currentCity", city) });
+    city.$then(function() { localStorageService.add("currentCity", city) });
     city.$then(function() { $scope.loading = false; });
 
     $scope.city = city;
