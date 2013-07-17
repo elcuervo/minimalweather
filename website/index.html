@@ -38,14 +38,18 @@
 
       </div>
 
-      <footer>
-        <div class="social">
-          <a href=""> <span class="icon-twitter"></span> </a>
-          <a href="https://github.com/elcuervo/minimalweather"> <span class="icon-github"></span> </a>
-        </div>
-      </footer>
-
     </div>
+    <footer class="pure-g-r">
+      <div class="social">
+        <a href="http://twitter.com/share" id="twitter">
+          <span class="icon-twitter"></span>
+        </a>
+        <a href="https://github.com/elcuervo/minimalweather">
+          <span class="icon-github"></span>
+        </a>
+      </div>
+    </footer>
+
   </div>
 
   <script type="text/javascript">
@@ -58,6 +62,22 @@
      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
      })();
+
+    var twitterButton = document.getElementById("twitter");
+    twitterButton.addEventListener("click", function(e) {
+      e.preventDefault();
+
+      var message = "Check out the weather app with icon auto update";
+
+      var width  = 575;
+      var height = 400;
+      var left   = (window.innerWidth - width)  / 2;
+      var top    = (window.innerHeight - height) / 2;
+      var opts   = 'status=1,width=' + width + ',height=' + height + ',top=' + top + ',left=' + left;
+      var url    = this.href + '?text=' + encodeURI(message) + '&via=minimalweather';
+
+      window.open(url, 'twitter', opts);
+    });
   </script>
 
   <script src="/js/libs/angular-unstable/angular.js"></script>

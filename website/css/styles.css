@@ -45,7 +45,9 @@ input, button {
 }
 
 footer {
-  padding: 2em
+  position: fixed;
+  width: 100%;
+  bottom: 1em;
 }
 
 .animated {
@@ -89,7 +91,7 @@ footer {
 }
 
 #container {
-  padding: 3em
+  padding-top: 5em
 }
 
 #twitter_account {
@@ -105,16 +107,19 @@ footer {
 }
 
 .social {
-  font-size: 2em
+  font-size: 2em;
+}
+
+.social a {
+  padding: .3em
 }
 
 #weather_icon {
   font-size: 20em;
-  height: 1.2em
 }
 
 #weather_conditions {
-  height: 35em;
+  min-height: 40%;
 }
 
 #city_name:hover {
@@ -123,7 +128,7 @@ footer {
 }
 
 .bring_umbrella {
-  font-size: 2em;
+  font-size: 3em;
   cursor: help;
 }
 
