@@ -23,6 +23,10 @@ a {
   text-decoration: none;
 }
 
+canvas {
+  display: none;
+}
+
 [ng\:cloak], [ng-cloak], .ng-cloak {
   display: none !important;
 }
@@ -33,15 +37,6 @@ a {
 ul {
   padding: 0;
   margin: 0;
-}
-
-input, button {
-  outline: none;
-  border: 0;
-  background: transparent;
-  color: white;
-  font-size: 3em;
-  text-align: center
 }
 
 footer {
@@ -122,9 +117,12 @@ footer {
   min-height: 40%;
 }
 
-#city_name:hover {
-  color: black;
-  cursor: pointer
+#city_name {
+  border: 0;
+  background: transparent;
+  color: white;
+  font-size: 3em;
+  text-align: center
 }
 
 .bring_umbrella {
