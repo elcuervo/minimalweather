@@ -1,8 +1,21 @@
 module.exports = function(grunt) {
+  grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks("grunt-contrib-uglify");
 
   grunt.initConfig({
     pkg: grunt.file.readJSON("package.json"),
+
+    cssmin: {
+      combine: {
+        files: {
+          "css/minimalweather.css": [
+            "css/pure.css",
+            "css/icons.css",
+            "css/styles.css"
+          ]
+        }
+      }
+    },
 
     uglify: {
       options: {
@@ -24,5 +37,5 @@ module.exports = function(grunt) {
     }
   });
 
-  grunt.registerTask("default", ["uglify"]);
+  grunt.registerTask("default", ["uglify", "cssmin"]);
 }

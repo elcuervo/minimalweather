@@ -53,7 +53,6 @@ var findOrCreateElement = function(id, rel) {
 
 var createAppIcon = function(iconFn, temperature, raining) {
   var appIcon = findOrCreateElement("ios_icon", "apple-touch-icon-precomposed");
-
   var canvas = document.getElementById("ios_icon_generator")
 
   canvas.setAttribute('width', 228);
