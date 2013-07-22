@@ -1,13 +1,14 @@
 module.exports = function(grunt) {
   grunt.loadNpmTasks("grunt-contrib-uglify");
-  grunt.loadNpmTasks('grunt-contrib-concat');
 
   grunt.initConfig({
     pkg: grunt.file.readJSON("package.json"),
 
-    concat: {
-      options: { separator: ";" },
-      dist: {
+    uglify: {
+      options: {
+        mangle: false
+      },
+      build: {
         src: [
           "js/icons.js",
           "js/libs/angular-unstable/angular.js",
@@ -15,6 +16,7 @@ module.exports = function(grunt) {
           "js/libs/angular-unstable/angular-cookies.js",
           "js/libs/angular-geolocation/geolocation.js",
           "js/libs/angular-localstorage/localStorageModule.js",
+          "js/konami.js",
           "js/app.js"
         ],
         dest: "js/<%= pkg.name %>.js"
@@ -22,5 +24,5 @@ module.exports = function(grunt) {
     }
   });
 
-  grunt.registerTask("default", ["concat"]);
+  grunt.registerTask("default", ["uglify"]);
 }

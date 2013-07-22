@@ -120,7 +120,7 @@ you can use the generic selector below, but it's slower:
 .icon-fahrenheit:before { content: "\e013"; }
 .icon-fog:before { content: "\e014"; }
 .icon-thermometer:before { content: "\e01e"; }
-.icon-wind:before { content: "\e020"; }
+.icon-wind:before { content: "\e003"; }
 .icon-target:before { content: "\e02f"; }
 .icon-cancel:before { content: "\e030"; }
 .icon-umbrella:before { content: "\e031"; }

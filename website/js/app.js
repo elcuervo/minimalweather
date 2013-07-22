@@ -34,13 +34,27 @@ minimalweather.factory("Weather", function($resource, $http) {
   }
 });
 
+var findOrCreateElement = function(id, rel) {
+  var iosIcon = document.getElementById(id);
+
+  if(!!iosIcon) {
+    return iosIcon;
+  } else {
+    var link = document.createElement("link");
+
+    link.id = id;
+    link.rel = rel;
+
+    document.head.appendChild(link);
+
+    return link;
+  }
+}
+
 var createAppIcon = function(iconFn, temperature, raining) {
-  var appIcon = document.getElementById("ios_icon");
+  var appIcon = findOrCreateElement("ios_icon", "apple-touch-icon-precomposed");
+
   var canvas = document.getElementById("ios_icon_generator")
-  var units = {
-    "C": "*",
-    "F": "+"
-  };
 
   canvas.setAttribute('width', 228);
   canvas.setAttribute('height', 228);
@@ -66,10 +80,24 @@ var createAppIcon = function(iconFn, temperature, raining) {
   context.scale(window.devicePixelRatio, window.devicePixelRatio);
 
   var data = canvas.toDataURL("image/png");
+
   appIcon.href = data;
 };
 
 var MainController = function($scope, $resource, localStorageService, Weather, geolocation) {
+  new Konami(function() {
+    console.log("Konami code!");
+    // Easter island coordinates
+    var city = Weather.byCoords.get({ lat: -27.121192, lng: -109.366424 });
+
+    console.log("Easter egg. Moving to", city);
+    city.$then(function() {
+      generateIcon(city);
+    });
+
+    $scope.city = city;
+  });
+
   $scope.loading = true;
 
   var generateIcon = function(city) {
@@ -112,12 +140,16 @@ var MainController = function($scope, $resource, localStorageService, Weather, g
 
           console.log("The location changed!, relocating");
 
-          city.$then(function() {
-            localStorageService.add("currentCity", city);
-            generateIcon(city);
-            location.reload();
-          });
-
+          if(currentCity.name != city.name) {
+            console.log("I'm in another city. Refresh icon.");
+            city.$then(function() {
+              localStorageService.add("currentCity", city);
+              generateIcon(city);
+              location.reload();
+            });
+          } else {
+            console.log("I've moved. But I'm still in the same city");
+          }
         }
       });
 
