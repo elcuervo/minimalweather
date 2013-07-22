@@ -114,7 +114,7 @@ var MainController = function($scope, $resource, localStorageService, Weather, g
     city.$then(function() {
       localStorageService.add("currentCity", city);
       generateIcon(city);
-      if(reload) location.reload();
+      if(navigator.standalone && reload) location.reload();
     });
   };
 
