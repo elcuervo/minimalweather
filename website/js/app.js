@@ -108,6 +108,16 @@ var MainController = function($scope, $resource, localStorageService, Weather, g
     );
   };
 
+  var generateAndCache = function(city, reload) {
+    reload = !!reload ? true : reload;
+
+    city.$then(function() {
+      localStorageService.add("currentCity", city);
+      generateIcon(city);
+      if(reload) location.reload();
+    });
+  };
+
   var locateVisitor = function() {
     var currentCity = localStorageService.get("currentCity");
 
@@ -117,12 +127,9 @@ var MainController = function($scope, $resource, localStorageService, Weather, g
       var city = Weather.byCoords.get({ lat: lat, lng: lng });
 
       console.log("Loaded from cache:", lat, lng);
+      generateAndCache(city, false);
 
-      city.$then(function() {
-        $scope.loading = false;
-        generateIcon(city);
-      });
-
+      $scope.loading = false;
       $scope.city = city;
 
       geolocation.position().then(function(geo) {
@@ -140,12 +147,9 @@ var MainController = function($scope, $resource, localStorageService, Weather, g
           console.log("The location changed!, relocating");
 
           if(currentCity.name != city.name) {
+            generateAndCache(city);
+            $scope.loading = false;
             console.log("I'm in another city. Refresh icon.");
-            city.$then(function() {
-              localStorageService.add("currentCity", city);
-              generateIcon(city);
-              location.reload();
-            });
           } else {
             console.log("I've moved. But I'm still in the same city");
           }
@@ -159,12 +163,9 @@ var MainController = function($scope, $resource, localStorageService, Weather, g
         var city = Weather.byCoords.get({ lat: lat, lng: lng });
 
         console.log("Seek for geolocation:", lat, lng);
+        generateAndCache(city);
 
-        city.$then(function() {
-          generateIcon(city);
-          localStorageService.add("currentCity", city)
-        });
-
+        $scope.loading = false;
         $scope.city = city;
       });
     }
