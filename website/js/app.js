@@ -151,7 +151,7 @@ var MainController = function($scope, $resource, localStorageService, Weather, g
             $scope.loading = false;
             console.log("I'm in another city. Refresh icon.");
           } else {
-            console.log("I've moved. But I'm still in the same city");
+            console.log("I've moved. But I'm still in the same city.");
           }
         }
       });
@@ -182,6 +182,7 @@ var MainController = function($scope, $resource, localStorageService, Weather, g
   $scope.search = function() {
     $scope.loading = true;
     var city = Weather.byName.get({ city: this.city.name });
+
     console.log("Searching by city name:", this.city.name);
 
     city.$then(function() {
