@@ -1,8 +1,7 @@
-package weather
+package minimalweather
 
 import (
 	"cgl.tideland.biz/asserts"
-	"github.com/elcuervo/minimalweather/city"
 	"testing"
 )
 

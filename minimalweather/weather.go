@@ -1,4 +1,4 @@
-package weather
+package minimalweather
 
 import (
 	"encoding/json"
@@ -6,21 +6,16 @@ import (
 	"log"
 	"os"
 
-	"github.com/elcuervo/minimalweather/city"
-	"github.com/elcuervo/minimalweather/db"
 	"github.com/garyburd/redigo/redis"
 	forecast "github.com/mlbright/forecast/v2"
 )
 
-const prefix = "mw:weather:"
+const weather_prefix = "mw:weather:"
 
-var (
-	c       = db.Pool.Get()
-	api_key = os.Getenv("FORECAST_API_KEY")
-)
+var api_key = os.Getenv("FORECAST_API_KEY")
 
 type Weather struct {
-	Coordinates city.Coordinates `json:"-"`
+	Coordinates Coordinates `json:"-"`
 
 	Condition     string  `json:"condition"`
 	Icon          string  `json:"icon"`
@@ -29,8 +24,8 @@ type Weather struct {
 	BringUmbrella bool    `json:"bring_umbrella"`
 }
 
-func ClearCache() {
-	pattern := fmt.Sprintf("%s*", prefix)
+func ClearWeatherCache() {
+	pattern := fmt.Sprintf("%s*", weather_prefix)
 	keys, err := redis.Values(c.Do("KEYS", pattern))
 
 	if err != nil {
@@ -42,9 +37,9 @@ func ClearCache() {
 	}
 }
 
-func GetWeather(coords city.Coordinates) chan Weather {
+func GetWeather(coords Coordinates) chan Weather {
 	city_weather := make(chan Weather)
-	key := fmt.Sprintf("%s%f,%f", prefix, coords.Lat, coords.Lng)
+	key := fmt.Sprintf("%s%f,%f", weather_prefix, coords.Lat, coords.Lng)
 	cached_weather, err := c.Do("GET", key)
 
 	if err != nil {

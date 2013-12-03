@@ -1,4 +1,4 @@
-package city
+package minimalweather
 
 import (
 	"encoding/json"
@@ -6,13 +6,10 @@ import (
 	"log"
 
 	"github.com/elcuervo/geocoder"
-	"github.com/elcuervo/minimalweather/db"
 	"github.com/garyburd/redigo/redis"
 )
 
-const prefix = "mw:city:"
-
-var c = db.Pool.Get()
+const city_prefix = "mw:city:"
 
 type Coordinates geocoder.Coordinates
 
@@ -22,8 +19,8 @@ type City struct {
 	Error  error
 }
 
-func ClearCache() {
-	pattern := fmt.Sprintf("%s*", prefix)
+func ClearCityCache() {
+	pattern := fmt.Sprintf("%s*", city_prefix)
 	keys, err := redis.Values(c.Do("KEYS", pattern))
 
 	if err != nil {
@@ -54,11 +51,11 @@ func (l *LookupInformation) Key() string {
 }
 
 func (l *LookupInformation) byName() string {
-	return fmt.Sprintf("%s%s", prefix, l.Name)
+	return fmt.Sprintf("%s%s", city_prefix, l.Name)
 }
 
 func (l *LookupInformation) byCoords() string {
-	return fmt.Sprintf("%s%f,%f", prefix, l.Coords.Lat, l.Coords.Lng)
+	return fmt.Sprintf("%s%f,%f", city_prefix, l.Coords.Lat, l.Coords.Lng)
 }
 
 func findCity(l LookupInformation, out chan City) {
@@ -86,11 +83,11 @@ func findCity(l LookupInformation, out chan City) {
 			coords   Coordinates
 		)
 
-                if l.Name != "" {
+		if l.Name != "" {
 			city, err = geocoder.City(l.Name)
-                } else {
+		} else {
 			city, err = geocoder.Coords(l.Coords.Lat, l.Coords.Lng)
-                }
+		}
 
 		if err != nil {
 			location = &City{Name: "Unknown", Error: err}

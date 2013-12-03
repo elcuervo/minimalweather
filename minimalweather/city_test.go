@@ -1,4 +1,4 @@
-package city
+package minimalweather
 
 import (
 	"cgl.tideland.biz/asserts"
