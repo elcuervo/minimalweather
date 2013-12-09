@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="minimalweather" data-framework="angularjs">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="cache-control" content="no-cache">
@@ -7,32 +7,34 @@
   <meta name="viewport" content="width=device-width, minimum-scale=0.6, maximum-scale=0.6" />
   <meta name="apple-mobile-web-app-capable" content="yes">
 
-  <link rel="stylesheet" href="/css/minimalweather.min.css" />
+  <link rel="stylesheet" href="/assets/css/minimalweather.min.css" />
+  <script src="/assets/js/minimalweather.min.js"></script>
   <title>weather</title>
 </head>
-<body ng-cloak ng-controller="MainController">
+<body>
 
   <div id="container" class="pure-g-r">
     <div class="pure-u-1-2">
 
-      <div class="{{city.weather.icon && 'animated fadeIn'}}">
+      <div>
         <div id="weather_conditions" class="pure-g-r">
           <div class="pure-u-1-1" id="weather_icon">
-            <div class="icon-{{city.weather.icon}}"></div>
+          <div class="icon-{{ .Weather.Icon }}"></div>
           </div>
 
-          <div class="pure-g-r" id="weather_temperature" ng-show="city.weather.temperature">
-            <span class="temperature" ng-bind="city.weather.temperature|number:0"></span>
+          <div class="pure-g-r" id="weather_temperature">
+          <span class="temperature">{{ .Weather.Temperature }}</span>
             <span class="weather_scale">&deg;C</span>
+            {{ if .Weather.BringUmbrella }}
             <a class="weather bring_umbrella"
-              ng-show="city.weather.bring_umbrella"
               title="It's going to rain at some point today. You should get your umbrella">
               &#xe031;
             </a>
+            {{ end }}
           </div>
         </div>
 
-        <div id="city_name" ng-bind="city.name"></div>
+        <div id="city_name">{{.Name}}</div>
 
       </div>
 
@@ -49,9 +51,16 @@
     </footer>
   </div>
 
+  <pre>
+  {{ .JSON }}
+  </pre>
+
   <canvas id="ios_icon_generator"></canvas>
 
   <script type="text/javascript">
+    var minimal = new MinimalWeather({{ .JSON }});
+    minimal.generateIcon();
+
     var _gaq = _gaq || [];
     _gaq.push(['_setAccount', 'UA-33584289-1']);
     _gaq.push(['_trackPageview']);
@@ -78,7 +87,5 @@
       window.open(url, 'twitter', opts);
     });
   </script>
-
-  <script src="/js/minimalweather.min.js"></script>
 </body>
 </html>

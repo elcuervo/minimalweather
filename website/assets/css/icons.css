@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'weather';
-  src:url('/fonts/weather.eot');
-  src:url('/fonts/weather.eot?#iefix') format('embedded-opentype'),
-  url('/fonts/weather.woff') format('woff'),
-  url('/fonts/weather.ttf') format('truetype'),
-  url('/fonts/weather.svg#icomoon') format('svg');
+  src:url('/assets/fonts/weather.eot');
+  src:url('/assets/fonts/weather.eot?#iefix') format('embedded-opentype'),
+  url('/assets/fonts/weather.woff') format('woff'),
+  url('/assets/fonts/weather.ttf') format('truetype'),
+  url('/assets/fonts/weather.svg#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
 }

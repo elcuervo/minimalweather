@@ -14,11 +14,11 @@ module.exports = function(grunt) {
 
       src: {
         files: [
-          'js/**/*.js',
-          'css/**/*.css',
+          'assets/js/**/*.js',
+          'assets/css/**/*.css',
 
-          '!!js/**/*.min.js',
-          '!!css/**/*.min.css',
+          '!!assets/js/**/*.min.js',
+          '!!assets/css/**/*.min.css',
         ],
         tasks: ['build'],
       },
@@ -27,10 +27,10 @@ module.exports = function(grunt) {
     cssmin: {
       combine: {
         files: {
-          "css/<%= pkg.name %>.min.css": [
-            "css/pure.css",
-            "css/icons.css",
-            "css/styles.css"
+          "assets/css/<%= pkg.name %>.min.css": [
+            "assets/css/pure.css",
+            "assets/css/icons.css",
+            "assets/css/styles.css"
           ]
         }
       }
@@ -42,16 +42,11 @@ module.exports = function(grunt) {
       },
       build: {
         src: [
-          "js/icons.js",
-          "js/libs/angular-unstable/angular.js",
-          "js/libs/angular-unstable/angular-resource.js",
-          "js/libs/angular-unstable/angular-cookies.js",
-          "js/libs/angular-geolocation/geolocation.js",
-          "js/libs/angular-localstorage/localStorageModule.js",
-          "js/konami.js",
-          "js/app.js"
+          "assets/js/icons.js",
+          "assets/js/konami.js",
+          "assets/js/app.js"
         ],
-        dest: "js/<%= pkg.name %>.min.js"
+        dest: "assets/js/<%= pkg.name %>.min.js"
       }
     }
   });

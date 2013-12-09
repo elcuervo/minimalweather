@@ -1,9 +1,4 @@
 {
   "name": "minimalweather",
-  "version": "0.0.1",
-  "dependencies": {
-    "angular-unstable": "git@github.com:atizo/bower-angular-unstable.git",
-    "angular-geolocation": "latest",
-    "angular-localstorage": "latest"
-  }
+  "version": "0.0.1"
 }
