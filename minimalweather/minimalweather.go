@@ -4,9 +4,10 @@ import (
 	"encoding/json"
 	"github.com/gorilla/mux"
 	"github.com/elcuervo/geoip"
-        "github.com/ianoshen/uaparser"
 	"log"
+	"fmt"
 	"math"
+	"strings"
 	"os"
 	"net/http"
         "html/template"
@@ -16,16 +17,14 @@ import (
 var c = Pool.Get()
 
 type CityWeather struct {
-	Name        string      `json:"name"`
-	Coordinates Coordinates `json:"coordinates"`
+        City        City        `json:"city"`
 	Weather     Weather     `json:"weather"`
         JSON        string      `json:"-"`
 }
 
 func outputWeatherAsJSON(current_city City, current_weather Weather) []byte {
 	city_weather := &CityWeather{
-		Name:        current_city.Name,
-		Coordinates: current_city.Coords,
+		City:        current_city,
 		Weather:     current_weather}
 
 	out, _ := json.Marshal(city_weather)
@@ -57,19 +56,13 @@ func weatherByCoords(w http.ResponseWriter, req *http.Request) {
 
 	log.Println("By Coords:", lat, lng)
 
-	coords := Coordinates{lat, lng}
-	city_chan := FindByCoords(coords)
+	coords := Coordinates{ lat, lng }
+	current_city := FindByCoords(coords)
 	current_weather := <-GetWeather(coords)
-	current_city := <-city_chan
 
-	out := outputWeatherAsJSON(current_city, current_weather)
+	out := outputWeatherAsJSON(<-current_city, current_weather)
 
 	w.Write(out)
-}
-
-func iOSDevice(agent string) bool {
-        u := uaparser.Parse(agent)
-        return u.Device.Name == "iPhone" || u.Device.Name == "iPad" || u.Device.Name == "iPod"
 }
 
 func geolocate(req *http.Request) geoip.Geolocation {
@@ -87,20 +80,35 @@ func geolocate(req *http.Request) geoip.Geolocation {
 
 func homepage(w http.ResponseWriter, req *http.Request) {
         var cw *CityWeather
+        var coords Coordinates
 
- //       if iOSDevice(req.UserAgent()) {
+        current_cookie, err := req.Cookie("mw-location")
+
+        if err == nil {
+                log.Println("From Cookie cache")
+                parts := strings.Split(current_cookie.Value, "|")
+                lat, _ := strconv.ParseFloat(parts[0], 64)
+                lng, _ := strconv.ParseFloat(parts[1], 64)
+                coords = Coordinates{ lat, lng }
+        } else {
+                log.Println("From IP geolocation")
                 geo := geolocate(req)
-                coords := Coordinates{geo.Location.Latitude, geo.Location.Longitude}
-                city := <-FindByCoords(coords)
-                weather := <-GetWeather(coords)
+                coords = Coordinates{ geo.Location.Latitude, geo.Location.Longitude }
+        }
 
-                cw = &CityWeather{
-                        Name: city.Name,
-                        Coordinates: city.Coords,
-                        Weather: weather,
-                }
+        city := <-FindByCoords(coords)
+        weather := <-GetWeather(city.Coords)
 
-//        }
+        cw = &CityWeather{ City: city, Weather: weather }
+        lat, lng := city.Coords.Lat, city.Coords.Lng
+
+        cookie := &http.Cookie{
+                Name: "mw-location",
+                Value: fmt.Sprintf("%f|%f", lat, lng),
+                Path: "/",
+        }
+
+        http.SetCookie(w, cookie)
 
         t, _ := template.ParseFiles("./website/index.html")
         out, err := json.Marshal(cw)

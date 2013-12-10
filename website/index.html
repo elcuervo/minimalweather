@@ -34,7 +34,7 @@
           </div>
         </div>
 
-        <div id="city_name">{{.Name}}</div>
+        <div id="city_name">{{.City.Name}}</div>
 
       </div>
 
@@ -51,15 +51,12 @@
     </footer>
   </div>
 
-  <pre>
-  {{ .JSON }}
-  </pre>
-
   <canvas id="ios_icon_generator"></canvas>
 
   <script type="text/javascript">
-    var minimal = new MinimalWeather({{ .JSON }});
-    minimal.generateIcon();
+    var mw = new MinimalWeather({{ .JSON }});
+    mw.geolocate();
+    mw.generateIcon();
 
     var _gaq = _gaq || [];
     _gaq.push(['_setAccount', 'UA-33584289-1']);
