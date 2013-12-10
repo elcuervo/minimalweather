@@ -8,7 +8,6 @@ import (
 	"fmt"
 	"math"
 	"strings"
-	"os"
 	"net/http"
         "html/template"
 	"strconv"
@@ -63,17 +62,46 @@ func weatherByCoords(w http.ResponseWriter, req *http.Request) {
 	out := outputWeatherAsJSON(<-current_city, current_weather)
 
 	w.Write(out)
+
+}
+
+func ipFromRemote(s string) string {
+        index := strings.LastIndex(s, ":")
+        if index == -1 {
+                return s
+        }
+        return s[:index]
+}
+
+func ipAddress(r *http.Request) string {
+        hdr := r.Header
+        hdrRealIp := hdr.Get("X-Real-Ip")
+        log.Println("real:", hdrRealIp)
+        hdrForwardedFor := hdr.Get("X-Forwarded-For")
+        log.Println("forwarded:", hdrForwardedFor)
+
+        if hdrRealIp == "" && hdrForwardedFor == "" {
+                log.Println("from remote:", ipFromRemote(r.RemoteAddr))
+                return ipFromRemote(r.RemoteAddr)
+        }
+
+        if hdrForwardedFor != "" {
+                // X-Forwarded-For is potentially a list of addresses separated with ","
+                parts := strings.Split(hdrForwardedFor, ",")
+                for i, p := range parts {
+                        parts[i] = strings.TrimSpace(p)
+                }
+                log.Println("parts:", parts)
+                // TODO: should return first non-local address
+                return parts[0]
+        }
+        return hdrRealIp
 }
 
 func geolocate(req *http.Request) geoip.Geolocation {
         var user_addr string
-        var current_env = os.Getenv("DEVELOPMENT")
-
-        if current_env != "" {
-                user_addr = "186.54.253.75"
-        } else {
-                user_addr = req.RemoteAddr
-        }
+        user_addr = ipAddress(req)
+        log.Println(user_addr)
 
         return <-GetLocation(user_addr)
 }
@@ -91,7 +119,7 @@ func homepage(w http.ResponseWriter, req *http.Request) {
                 lng, _ := strconv.ParseFloat(parts[1], 64)
                 coords = Coordinates{ lat, lng }
         } else {
-                log.Println("From IP geolocation")
+                log.Println("From geolocation")
                 geo := geolocate(req)
                 coords = Coordinates{ geo.Location.Latitude, geo.Location.Longitude }
         }
