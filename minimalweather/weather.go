@@ -67,7 +67,7 @@ func GetWeather(coords Coordinates) chan Weather {
 
 			log.Printf("Checking weather: %s,%s\n", lat, lng)
 
-			f := forecast.Get(api_key, lat, lng, "now")
+			f := forecast.Get(api_key, lat, lng, "now", forecast.SI)
 
 			// Look for the next 8 hours. See if it's going to rain
 			// at some point
