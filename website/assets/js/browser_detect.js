@@ -8,15 +8,16 @@ var BrowserDetect = {
   },
 
   searchString: function (data) {
-  for(var i=0; i<data.length; i++) {
-    var dataString = data[i].string;
-    var dataProp = data[i].prop;
-    this.versionSearchString = data[i].versionSearch || data[i].identity;
-    if (dataString) {
-      if (dataString.indexOf(data[i].subString) != -1)
+    for(var i=0; i<data.length; i++) {
+      var dataString = data[i].string;
+      var dataProp = data[i].prop;
+      this.versionSearchString = data[i].versionSearch || data[i].identity;
+      if (dataString) {
+        if (dataString.indexOf(data[i].subString) != -1)
+          return data[i].identity;
+      } else if (dataProp) {
         return data[i].identity;
-    } else if (dataProp) {
-      return data[i].identity;
+      }
     }
   },
 

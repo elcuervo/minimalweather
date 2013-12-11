@@ -46,6 +46,7 @@ module.exports = function(grunt) {
         src: [
           "assets/js/icons.js",
           "assets/js/konami.js",
+          "assets/js/browser_detect.js",
           "assets/js/app.js",
           "assets/js/libs/snapjs/snap.js"
         ],
