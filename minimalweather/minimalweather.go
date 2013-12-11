@@ -5,6 +5,7 @@ import (
 	"github.com/gorilla/mux"
 	"github.com/elcuervo/geoip"
 	"log"
+	"os"
 	"fmt"
 	"math"
 	"strings"
@@ -74,6 +75,11 @@ func ipFromRemote(s string) string {
 }
 
 func ipAddress(r *http.Request) string {
+        development := os.Getenv("DEVELOPMENT")
+        if development != "" {
+                return "186.52.170.66"
+        }
+
         hdr := r.Header
         hdrRealIp := hdr.Get("X-Real-Ip")
         hdrForwardedFor := hdr.Get("X-Forwarded-For")
