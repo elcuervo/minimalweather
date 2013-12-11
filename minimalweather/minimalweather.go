@@ -76,12 +76,9 @@ func ipFromRemote(s string) string {
 func ipAddress(r *http.Request) string {
         hdr := r.Header
         hdrRealIp := hdr.Get("X-Real-Ip")
-        log.Println("real:", hdrRealIp)
         hdrForwardedFor := hdr.Get("X-Forwarded-For")
-        log.Println("forwarded:", hdrForwardedFor)
 
         if hdrRealIp == "" && hdrForwardedFor == "" {
-                log.Println("from remote:", ipFromRemote(r.RemoteAddr))
                 return ipFromRemote(r.RemoteAddr)
         }
 
@@ -91,7 +88,6 @@ func ipAddress(r *http.Request) string {
                 for i, p := range parts {
                         parts[i] = strings.TrimSpace(p)
                 }
-                log.Println("parts:", parts)
                 // TODO: should return first non-local address
                 return parts[0]
         }
