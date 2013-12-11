@@ -99,6 +99,7 @@ footer {
 
 .temperature {
   font-size: 10em;
+  font-family: 'Lato', sans-serif;
 }
 
 .social {
@@ -122,6 +123,7 @@ footer {
   background: transparent;
   color: white;
   font-size: 3em;
+  font-family: 'Lato', sans-serif;
   text-align: center
 }
 
@@ -132,6 +134,7 @@ footer {
 
 .weather_scale {
   font-size: 10em;
+  font-family: 'Lato', sans-serif;
 }
 
 .about {

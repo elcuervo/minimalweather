@@ -70,7 +70,7 @@ var MinimalWeather = function(json) {
     if(this.mw.weather.bring_umbrella) icons["umbrella"](context)
 
     context.fillStyle = "white";
-    context.font = "bold 3em sans-serif"; // temperature
+    context.font = "3em Lato"; // temperature
     context.textAlign = "right";
 
     context.fillText(temperature + "°" + unit, 200, 50);
