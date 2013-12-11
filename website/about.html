@@ -4,46 +4,122 @@
   <meta charset="UTF-8">
   <meta http-equiv="cache-control" content="no-cache">
   <meta http-equiv="pragma" content="no-cache">
+  <link href='http://fonts.googleapis.com/css?family=Lato:300:900' rel='stylesheet' type='text/css'>
   <meta name="viewport" content="width=device-width, minimum-scale=0.6, maximum-scale=0.6" />
-  <link rel="stylesheet" href="/assets/css/minimalweather.min.css" />
+  <link rel="stylesheet" href="/assets/css/pure.css" />
+  <link rel="stylesheet" href="/assets/css/styles.css" />
+  <link rel="stylesheet" href="/assets/css/icons.css" />
   <title>weather - What's so special?</title>
 </head>
 <body>
 
-  <div id="container" class="pure-g-r">
-    <div class="pure-u-1-2 about">
-        <h1>What's so special with Minimal Weather now?</h1>
-        <p>
-                Minimal Weather does a cool trick. Which is update the app icon
-                when you check the weather. That's a good thing to easily
-                remember how you should go out.
-        </p>
+  <div id="container" class="pure-g-r about">
+    <div class="pure-u-1-2 about_content">
+      <h1>What's so special with Minimal Weather now?</h1>
+      <p>
+        Minimal Weather does a cool trick. Which is update the app icon
+        when you check the weather. That's a good thing to easily
+        remember how you should go out.
+      </p>
 
-        <p>
-                One of the new tricks that it has now it's that it'll show you
-                an umbrella if there's a chance of rain in the next 8 hours. So
-                then you can be aware of it before going to work.
-        </p>
+      <p>
+        One of the new tricks that it has now it's that it'll show you
+        an umbrella if there's a chance of rain in the next 8 hours. So
+        then you can be aware of it before going to work.
+      </p>
 
-        <h2>The technology behind it:</h2>
-        <h3>The icon update</h3>
-        <h3>Language</h3>
-        <h3>Javascript</h3>
-        <h3>Database</h3>
-        <p>
-                The database that uses Minimal Weather is Redis thanks to the
-                OpenRedis guys.
+      <h2>The technology behind it:</h2>
+      <h3>The icon update</h3>
+      <h3>Language</h3>
+      <img src="/assets/img/golang.png" alt="Go">
+      <p>
+        Weapon of choice:
+        <a href="http://golang.org">Go</a>
+      </p>
+      <p>
+        The backend of the application is written in Go. I choose Go for several
+        reasons:
+      </p>
+      <ul>
+        <li>I wanted to use Go in a real world problem</li>
+        <li>
+          The concurrency primitives are really useful when interacting with
+          several APIs
+        </li>
+        <li>The overall performance is quite better than the Ruby version</li>
+      </ul>
+      <h3>Geolocation</h3>
+      <img src="/assets/img/maxmind.png" alt="Go">
+      <p>
+        Weapon of choice:
+        <a href="http://maxmind.com">Maxmind</a>
+      </p>
+      <p>
+        If you take a look to the code you'll realize that there's an IP
+        geolocation but when you use the app it asks you about allowing HTML5
+        Geolocation.
+      </p>
+      <p>
+        The reason behind it is simple: The first time you use the app it will
+        use your IP address and save the result in a cookie, then the
+        geolocation starts and if for some reason the geolocation and the ip
+        cities are different it will refresh the cookie with the new value. That
+        way I'll save some requests to the IP geolocation service.
+      </p>
+      <h3>Javascript</h3>
+      <img src="/assets/img/javascript.png" alt="Javascript">
+      <p>
+        Weapon of choice:
+        <a href="http://vanilla-js.com/">Vanilla Javascript</a>
+      </p>
+      <p>
+        I know that there are amazing libs out there and I really tried to apply
+        them to Minimal Weather but I found a huge overhead in development and
+        in the final product so I'm using vanilla JS. The only place where a lib
+        is used is to do a geolocation check and I choose zepto for this.
+      </p>
+      <p>
+        Keeping things simple is what allows this app to exists. A quick
+        execution helps the canvas to be generated. Few overhead makes this
+        developer happy.
+      </p>
+      <h3>Database</h3>
+      <img src="/assets/img/redis.png" alt="Redis">
+      <p>
+        Weapon of choice:
+        <a href="http://openredis.com">OpenRedis</a>
+      </p>
+      <p>
+        The database that uses Minimal Weather is Redis thanks to the
+        OpenRedis guys.
 
-                There are a few reasons on why to use Redis. One of those
-                reasons is because I really like it but besides that the key
-                expiration helped me a lot to handle the weather, ip and
-                location caches.
-        </p>
-        <h3>Thanks to:</h3>
-        <ul>
-                <li>@jserra</li>
-        </ul>
+        There are a few reasons on why to use Redis. One of those
+        reasons is because I really like it but besides that the key
+        expiration helped me a lot to handle the weather, ip and
+        location caches.
+      </p>
+      <h3>Thanks to:</h3>
+      <ul>
+        <li>@jserra</li>
+      </ul>
     </div>
+
+    <footer class="pure-g-r">
+      <div class="social">
+        <a href="http://twitter.com/share" id="twitter">
+          <span class="icon-twitter"></span>
+        </a>
+
+        <a href="https://github.com/elcuervo/minimalweather">
+          <span class="icon-github"></span>
+        </a>
+
+        <a href="/about">
+          <span class="icon-about"></span>
+        </a>
+
+      </div>
+    </footer>
   </div>
 
   <script type="text/javascript">
