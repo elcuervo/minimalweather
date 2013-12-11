@@ -64,7 +64,21 @@ func weatherByCoords(w http.ResponseWriter, req *http.Request) {
 	out := outputWeatherAsJSON(<-current_city, current_weather)
 
 	w.Write(out)
+}
 
+func cityByCoords(w http.ResponseWriter, req *http.Request) {
+	vars := mux.Vars(req)
+
+	lat, _ := strconv.ParseFloat(vars["lat"], 64)
+	lng, _ := strconv.ParseFloat(vars["lng"], 64)
+
+	log.Println("city By Coords:", lat, lng)
+
+	coords := Coordinates{ lat, lng }
+	current_city := <-FindByCoords(coords)
+
+        out, _ := json.Marshal(current_city)
+	w.Write(out)
 }
 
 func ipFromRemote(s string) string {
@@ -153,6 +167,14 @@ func homepage(w http.ResponseWriter, req *http.Request) {
 
         http.SetCookie(w, cookie)
 
+        city_cookie := &http.Cookie{
+                Name: "mw-city",
+                Value: fmt.Sprintf("%s", city.Name),
+                Path: "/",
+        }
+
+        http.SetCookie(w, city_cookie)
+
         t, _ := template.ParseFiles("./website/index.html")
         out, err := json.Marshal(cw)
         cw.JSON = string(out)
@@ -179,6 +201,7 @@ func Handler() *mux.Router {
 
 	r.HandleFunc("/weather/{city}", weatherByCity).Methods("GET")
 	r.HandleFunc("/weather/{lat}/{lng}", weatherByCoords).Methods("GET")
+	r.HandleFunc("/city/{lat}/{lng}", cityByCoords).Methods("GET")
 	r.PathPrefix("/assets").Handler(http.FileServer(http.Dir("./website/")))
         r.HandleFunc("/", homepage).Methods("GET")
         r.HandleFunc("/about", about).Methods("GET")

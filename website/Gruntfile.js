@@ -48,6 +48,7 @@ module.exports = function(grunt) {
           "assets/js/konami.js",
           "assets/js/browser_detect.js",
           "assets/js/app.js",
+          "assets/js/zepto.min.js",
           "assets/js/libs/snapjs/snap.js"
         ],
         dest: "assets/js/<%= pkg.name %>.min.js"

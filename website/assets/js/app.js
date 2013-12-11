@@ -127,6 +127,27 @@ MinimalWeather.prototype = {
       self.cookieMonster.set("mw-unit", this.id.toUpperCase());
     }
     for(i in units) units[i].addEventListener("click", changeUnit);
+  },
+
+  geolocate: function() {
+    var self = this;
+    navigator.geolocation.getCurrentPosition(function(position) {
+      var cookieCity = self.cookieMonster.get("mw-city")
+      //27.1167° S, 109.3667°
+
+      var lat = position.coords.latitude;
+      var lng = position.coords.longitude;
+
+      $.getJSON('/city/' + lat + '/' + lng, function(response){
+        if(response.city == undefined) return;
+
+        if(response.city != cookieCity) {
+          console.log("Ok, you moved. Let's find you current weather");
+          self.cookieMonster.set("mw-location", lat + "|" + lng);
+          location.reload();
+        }
+      })
+    });
   }
 };
 
