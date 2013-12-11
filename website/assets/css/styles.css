@@ -133,3 +133,19 @@ footer {
 .weather_scale {
   font-size: 10em;
 }
+
+@media only screen
+and (min-device-width : 768px)
+and (max-device-width : 1024px)
+and (-webkit-min-device-pixel-ratio: 1)  {
+  .minimal_weather { font-size: 2em; }
+  .social { font-size: 4em; }
+}
+
+@media only screen
+and (min-device-width : 320px)
+and (max-device-width : 568px)
+and (orientation : landscape) {
+  .minimal_weather { font-size: 1em; }
+  .social { display: none }
+}
