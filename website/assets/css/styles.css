@@ -87,7 +87,7 @@ footer {
 }
 
 .left-drawer {
-  width: 267px;
+  width: 300px;
 }
 
 #container {
@@ -226,7 +226,7 @@ footer {
 and (min-device-width : 768px)
 and (max-device-width : 1024px)
 and (-webkit-min-device-pixel-ratio: 1)  {
-  .left-drawer { font-size: 2em; }
+  .left-drawer { width: 600px; font-size: 2em; }
   .button { font-size: 1.2em }
   .minimal_weather { font-size: 2em; }
   .social { font-size: 4em; }
