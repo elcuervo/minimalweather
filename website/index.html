@@ -24,13 +24,19 @@
 
   <div class="drawer">
     <div class="left-drawer">
-      <h1>Options</h1>
-      <h2>Unit</h2>
+            <div class="config">
+                    <h1>Options</h1>
+                    <h2>Units</h2>
+                    <p>
+                            I try to autodetect from where you are accessing and use the correct
+                            unit but if you want you can change that here:
+                    </p>
 
-      <div class="split-buttons plain-buttons">
-        <a href="/" id="c" class="button button-left">&deg;C</a>
-        <a href="/" id="f" class="button button-right">&deg;F</a>
-      </div>
+                    <div class="split-buttons plain-buttons">
+                            <a href="/" id="c" class="button button-left">&deg;C</a>
+                            <a href="/" id="f" class="button button-right">&deg;F</a>
+                    </div>
+            </div>
 
     </div>
   </div>
@@ -74,14 +80,19 @@
 
   <script type="text/javascript">
     var mw = new MinimalWeather({{ .JSON }});
-    mw.bindUnits([document.getElementById("c"), document.getElementById("f")]);
+    mw.bindUnits([
+      document.getElementById("c"),
+      document.getElementById("f")
+    ]);
     mw.generateIcon();
+
+    var ios = BrowserDetect.OS == "iPhone" && BrowserDetect.browser == "Safari";
 
     new Snap({
       element: document.getElementById("container"),
       disable: "right",
-      maxPosition: 300,
-      minPosition: -300
+      maxPosition: ios ? 600 : 300,
+      minPosition: ios ? -600 : -300
     });
 
     var _gaq = _gaq || [];
