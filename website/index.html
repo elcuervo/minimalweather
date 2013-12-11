@@ -87,13 +87,14 @@
     mw.generateIcon();
     mw.geolocate();
 
-    var ios = BrowserDetect.OS == "iPhone" && BrowserDetect.browser == "Safari";
+    var ipad = BrowserDetect.OS == "iPhone/iPad" &&
+               BrowserDetect.browser == "Safari";
 
     new Snap({
       element: document.getElementById("container"),
       disable: "right",
-      maxPosition: ios ? 600 : 300,
-      minPosition: ios ? -600 : -300
+      maxPosition: ipad ? 600 : 300,
+      minPosition: ipad ? -600 : -300
     });
 
     var _gaq = _gaq || [];

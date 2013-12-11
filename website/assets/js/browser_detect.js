@@ -126,6 +126,12 @@ var BrowserDetect = {
     },
 
     {
+      string: navigator.userAgent,
+      subString: "iPad",
+      identity: "iPhone/iPad"
+    },
+
+    {
       string: navigator.platform,
       subString: "Linux",
       identity: "Linux"
