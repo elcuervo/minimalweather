@@ -150,15 +150,25 @@ func homepage(w http.ResponseWriter, req *http.Request) {
         }
 }
 
+type About struct{}
+
+func about(w http.ResponseWriter, req *http.Request) {
+        a := &About{}
+        t, _ := template.ParseFiles("./website/about.html")
+        err := t.Execute(w, a)
+        if err != nil {
+                http.Error(w, err.Error(), http.StatusInternalServerError)
+        }
+}
+
 func Handler() *mux.Router {
 	r := mux.NewRouter()
 
 	r.HandleFunc("/weather/{city}", weatherByCity).Methods("GET")
 	r.HandleFunc("/weather/{lat}/{lng}", weatherByCoords).Methods("GET")
-
 	r.PathPrefix("/assets").Handler(http.FileServer(http.Dir("./website/")))
-
-	r.HandleFunc("/", homepage).Methods("GET")
+        r.HandleFunc("/", homepage).Methods("GET")
+        r.HandleFunc("/about", about).Methods("GET")
 
 	return r
 }

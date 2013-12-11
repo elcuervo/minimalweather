@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta name="viewport" content="width=device-width, minimum-scale=0.6, maximum-scale=0.6" />
+  <link rel="stylesheet" href="/assets/css/minimalweather.min.css" />
+  <title>weather - What's so special?</title>
+</head>
+<body>
+
+  <div id="container" class="pure-g-r">
+    <div class="pure-u-1-2 minimal_weather">
+        <h1>What's so special with Minimal Weather now?</h1>
+    </div>
+    <footer class="pure-g-r">
+      <div class="social">
+        <a href="http://twitter.com/share" id="twitter">
+          <span class="icon-twitter"></span>
+        </a>
+        <a href="https://github.com/elcuervo/minimalweather">
+          <span class="icon-github"></span>
+        </a>
+      </div>
+    </footer>
+  </div>
+
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-33584289-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+     var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+     ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+     })();
+
+    var twitterButton = document.getElementById("twitter");
+    twitterButton.addEventListener("click", function(e) {
+      e.preventDefault();
+
+      var message = "Check out the weather app with icon auto update";
+
+      var width  = 575;
+      var height = 400;
+      var left   = (window.innerWidth - width)  / 2;
+      var top    = (window.innerHeight - height) / 2;
+      var opts   = 'status=1,width=' + width + ',height=' + height + ',top=' + top + ',left=' + left;
+      var url    = this.href + '?text=' + encodeURI(message) + '&via=minimalweather';
+
+      window.open(url, 'twitter', opts);
+    });
+  </script>
+</body>
+</html>
