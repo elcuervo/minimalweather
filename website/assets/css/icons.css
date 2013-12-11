@@ -59,6 +59,7 @@ you can use the generic selector below, but it's slower:
   .icon-fog,
   .icon-clear-day,
   .icon-clear-night,
+  .icon-about,
   .icon-partly-cloudy-day,
   .icon-partly-cloudy-night,
 
@@ -126,3 +127,4 @@ you can use the generic selector below, but it's slower:
 .icon-umbrella:before { content: "\e031"; }
 .icon-twitter:before { content: "\e032"; }
 .icon-github:before { content: "\e033"; }
+.icon-about:before { content: "\e001"; }

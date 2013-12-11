@@ -27,6 +27,7 @@ canvas {
 
 .icon-github:hover { color: black }
 .icon-twitter:hover { color: #1ab2e8 }
+.icon-about:hover { color: yellow }
 
 ul {
   padding: 0;
@@ -177,7 +178,13 @@ footer {
 }
 
 .plain-buttons {
-  padding: 20px
+  padding: 20px;
+}
+
+.plain-buttons:after {
+  content: "";
+  display: table;
+  clear: both;
 }
 
 .plain-buttons .button {
