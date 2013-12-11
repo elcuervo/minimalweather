@@ -30,7 +30,9 @@ module.exports = function(grunt) {
           "assets/css/<%= pkg.name %>.min.css": [
             "assets/css/pure.css",
             "assets/css/icons.css",
-            "assets/css/styles.css"
+            "assets/css/styles.css",
+
+            "assets/js/libs/snapjs/snap.css"
           ]
         }
       }
@@ -44,7 +46,8 @@ module.exports = function(grunt) {
         src: [
           "assets/js/icons.js",
           "assets/js/konami.js",
-          "assets/js/app.js"
+          "assets/js/app.js",
+          "assets/js/libs/snapjs/snap.js"
         ],
         dest: "assets/js/<%= pkg.name %>.min.js"
       }

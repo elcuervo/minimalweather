@@ -22,6 +22,7 @@ var weatherAsIcon = function(text) {
 
 var MinimalWeather = function(json) {
   this.mw = JSON.parse(json);
+  this.unit = localStorage.getItem("unit");
 
   this.findOrCreateElement = function(id, rel) {
     var iosIcon = document.getElementById(id);
@@ -45,7 +46,7 @@ var MinimalWeather = function(json) {
     var canvas = document.getElementById("ios_icon_generator");
     var unit, temperature;
 
-    if(this.mw.city.country == "USA") {
+    if(this.mw.city.country == "USA" || this.unit == "f" ) {
       temperature = Math.floor(((this.mw.weather.temperature*9)/5)+32);
       unit = "F";
     } else {

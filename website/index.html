@@ -7,6 +7,7 @@
   <meta name="viewport" content="width=device-width, minimum-scale=0.6, maximum-scale=0.6" />
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-touch-fullscreen" content="yes">
 
   <link href='http://fonts.googleapis.com/css?family=Lato:300' rel='stylesheet' type='text/css'>
 
@@ -20,7 +21,20 @@
   <script src="/assets/js/minimalweather.min.js"></script>
   <title>weather</title>
 </head>
-<body>
+<body id="main">
+
+  <div class="drawer">
+    <div class="left-drawer">
+      <h1>Options</h1>
+      <h2>Unit</h2>
+
+      <div class="split-buttons plain-buttons">
+        <a href="/" id="c" class="button button-left">&deg;C</a>
+        <a href="/" id="f" class="button button-right">&deg;F</a>
+      </div>
+
+    </div>
+  </div>
 
   <div id="container" class="pure-g-r">
     <div class="pure-u-1-2 minimal_weather">
@@ -54,6 +68,7 @@
         </a>
       </div>
     </footer>
+
   </div>
 
   <canvas id="ios_icon_generator"></canvas>
@@ -61,6 +76,20 @@
   <script type="text/javascript">
     var mw = new MinimalWeather({{ .JSON }});
     mw.generateIcon();
+
+    var snapper = new Snap({
+      element: document.getElementById("container"),
+      disable: "right",
+      maxPosition: "300%",
+      minPosition: "-300%",
+    });
+
+    var unitChanger = function() {
+      localStorage.setItem("unit", this.id);
+    }
+
+    document.getElementById("c").addEventListener("click", unitChanger);
+    document.getElementById("f").addEventListener("click", unitChanger);
 
     var _gaq = _gaq || [];
     _gaq.push(['_setAccount', 'UA-33584289-1']);
