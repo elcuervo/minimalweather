@@ -129,6 +129,14 @@ MinimalWeather.prototype = {
     for(i in units) units[i].addEventListener("click", changeUnit);
   },
 
+  bindRefresh: function(button) {
+    var self = this;
+    button.addEventListener("click", function() {
+      self.cookieMonster.del("mw-city");
+      self.cookieMonster.del("mw-location");
+    })
+  },
+
   geolocate: function() {
     var self = this;
     navigator.geolocation.getCurrentPosition(function(position) {

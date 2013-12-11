@@ -24,19 +24,29 @@
 
   <div class="drawer">
     <div class="left-drawer">
-            <div class="config">
-                    <h1>Options</h1>
-                    <h2>Units</h2>
-                    <p>
-                            I try to autodetect from where you are accessing and use the correct
-                            unit but if you want you can change that here:
-                    </p>
+      <div class="config">
+        <h1>Options</h1>
+        <h2>Units</h2>
+        <p>
+          I try to autodetect from where you are accessing and use the correct
+          unit but if you want you can change that here:
+        </p>
 
-                    <div class="split-buttons plain-buttons">
-                            <a href="/" id="c" class="button button-left">&deg;C</a>
-                            <a href="/" id="f" class="button button-right">&deg;F</a>
-                    </div>
-            </div>
+        <div class="split-buttons plain-buttons">
+          <a href="/" id="c" class="button button-left">&deg;C</a>
+          <a href="/" id="f" class="button button-right">&deg;F</a>
+        </div>
+
+        <h2>Force Refresh</h2>
+        <p>
+          Somethings things don't work and you want to force the app to forget
+          the location cache. Click here to make it happen.
+        </p>
+
+        <div class="split-buttons plain-buttons">
+          <a href="/" id="force_refresh" class="button">Refresh</a>
+        </div>
+      </div>
 
     </div>
   </div>
@@ -80,6 +90,7 @@
 
   <script type="text/javascript">
     var mw = new MinimalWeather({{ .JSON }});
+    mw.bindRefresh(document.getElementById("force_refresh"));
     mw.bindUnits([
       document.getElementById("c"),
       document.getElementById("f")
