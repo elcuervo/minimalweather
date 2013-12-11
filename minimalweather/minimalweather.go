@@ -19,6 +19,7 @@ var c = Pool.Get()
 type CityWeather struct {
         City        City        `json:"city"`
 	Weather     Weather     `json:"weather"`
+        Unit        string      `json:"unit"`
         JSON        string      `json:"-"`
 }
 
@@ -112,11 +113,11 @@ func homepage(w http.ResponseWriter, req *http.Request) {
         var cw *CityWeather
         var coords Coordinates
 
-        current_cookie, err := req.Cookie("mw-location")
+        location_cookie, err := req.Cookie("mw-location")
 
         if err == nil {
                 log.Println("From Cookie cache")
-                parts := strings.Split(current_cookie.Value, "|")
+                parts := strings.Split(location_cookie.Value, "|")
                 lat, _ := strconv.ParseFloat(parts[0], 64)
                 lng, _ := strconv.ParseFloat(parts[1], 64)
                 coords = Coordinates{ lat, lng }
@@ -130,6 +131,18 @@ func homepage(w http.ResponseWriter, req *http.Request) {
         weather := <-GetWeather(city.Coords)
 
         cw = &CityWeather{ City: city, Weather: weather }
+
+        unit_cookie, err := req.Cookie("mw-unit")
+        if err == nil {
+                cw.Unit = unit_cookie.Value
+        } else {
+                cw.Unit = "C"
+        }
+
+        if cw.Unit == "F" {
+                cw.Weather.Temperature = ((cw.Weather.Temperature*9)/5)+32
+        }
+
         lat, lng := city.Coords.Lat, city.Coords.Lng
 
         cookie := &http.Cookie{

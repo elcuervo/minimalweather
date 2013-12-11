@@ -7,7 +7,6 @@
   <meta name="viewport" content="width=device-width, minimum-scale=0.6, maximum-scale=0.6" />
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-touch-fullscreen" content="yes">
 
   <link href='http://fonts.googleapis.com/css?family=Lato:300' rel='stylesheet' type='text/css'>
 
@@ -45,7 +44,7 @@
 
           <div class="pure-g-r" id="weather_temperature">
           <span class="temperature">{{ .Weather.Temperature }}</span>
-            <span class="weather_scale">&deg;C</span>
+          <span class="weather_scale">&deg;{{ .Unit }}</span>
             {{ if .Weather.BringUmbrella }}
             <a class="weather bring_umbrella"
               title="It's going to rain at some point today. You should get your umbrella">
@@ -75,21 +74,15 @@
 
   <script type="text/javascript">
     var mw = new MinimalWeather({{ .JSON }});
+    mw.bindUnits([document.getElementById("c"), document.getElementById("f")]);
     mw.generateIcon();
 
-    var snapper = new Snap({
+    new Snap({
       element: document.getElementById("container"),
       disable: "right",
-      maxPosition: "300%",
-      minPosition: "-300%",
+      maxPosition: 300,
+      minPosition: -300
     });
-
-    var unitChanger = function() {
-      localStorage.setItem("unit", this.id);
-    }
-
-    document.getElementById("c").addEventListener("click", unitChanger);
-    document.getElementById("f").addEventListener("click", unitChanger);
 
     var _gaq = _gaq || [];
     _gaq.push(['_setAccount', 'UA-33584289-1']);

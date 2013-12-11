@@ -41,18 +41,48 @@ var MinimalWeather = function(json) {
     }
   }
 
+  this.cookieMonster = {
+    get: function(key) {
+      var data = this.all();
+      return data[key];
+    },
+
+    all: function() {
+      var cookies = document.cookie.split(';');
+      var data = {};
+
+      for(var i = 0; i < cookies.length; i++) {
+        var keysAndValues = cookies[i].split('=');
+        data[keysAndValues[0].replace( /^\s+|\s+$/g, '' )] = keysAndValues[1];
+      }
+      return data;
+    },
+
+    del: function(key) {
+      this.set(key, '', '; expires=Thu, 01 Jan 1970 00:00:01 GMT;' )
+    },
+
+    set: function(key, value, expires) {
+      if(!expires) {
+        var date = new Date();
+        date.setTime(date.getTime() + (60*24*60*60*1000));
+        var expires = "; expires=" + date.toGMTString();
+      }
+
+      document.cookie = key + '=' + value + expires +  'path=/'
+    }
+  };
+
+  this.usesFarenheit = function() {
+    var cookieCache = this.cookieMonster.get("mw-unit").toUpperCase() == "F";
+    return cookieCache || this.mw.city.country == "USA";
+  };
+
   this.createAppIcon = function(iconFn) {
     var appIcon = this.findOrCreateElement("ios_icon", "apple-touch-icon-precomposed");
     var canvas = document.getElementById("ios_icon_generator");
-    var unit, temperature;
-
-    if(this.mw.city.country == "USA" || this.unit == "f" ) {
-      temperature = Math.floor(((this.mw.weather.temperature*9)/5)+32);
-      unit = "F";
-    } else {
-      temperature = Math.floor(this.mw.weather.temperature);
-      unit = "C";
-    }
+    var temperature = Math.floor(this.mw.weather.temperature);
+    var unit = this.mw.unit;
 
     canvas.setAttribute('width', 228);
     canvas.setAttribute('height', 228);
@@ -89,6 +119,14 @@ MinimalWeather.prototype = {
     var fn = icons[icon];
 
     this.createAppIcon(fn);
+  },
+
+  bindUnits: function(units) {
+    var self = this;
+    var changeUnit = function() {
+      self.cookieMonster.set("mw-unit", this.id.toUpperCase());
+    }
+    for(i in units) units[i].addEventListener("click", changeUnit);
   }
 };
 
