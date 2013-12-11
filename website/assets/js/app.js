@@ -43,12 +43,13 @@ var MinimalWeather = function(json) {
   this.createAppIcon = function(iconFn) {
     var appIcon = this.findOrCreateElement("ios_icon", "apple-touch-icon-precomposed");
     var canvas = document.getElementById("ios_icon_generator");
-    var unit;
+    var unit, temperature;
 
     if(this.mw.city.country == "USA") {
-      this.cw.weather.temperature = ((this.cw.weather.temperature*9)/5)+32;
+      temperature = Math.floor(((this.mw.weather.temperature*9)/5)+32);
       unit = "F";
     } else {
+      temperature = Math.floor(this.mw.weather.temperature);
       unit = "C";
     }
 
@@ -72,7 +73,7 @@ var MinimalWeather = function(json) {
     context.font = "bold 3em sans-serif"; // temperature
     context.textAlign = "right";
 
-    context.fillText(this.mw.weather.temperature + "°" + unit, 200, 50);
+    context.fillText(temperature + "°" + unit, 200, 50);
     context.scale(window.devicePixelRatio, window.devicePixelRatio);
 
     var data = canvas.toDataURL("image/png");
