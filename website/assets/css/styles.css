@@ -286,4 +286,6 @@ and (max-device-width : 568px)
 and (orientation : landscape) {
   .minimal_weather { font-size: 1em; }
   .social { display: none }
+  .config_media { display: none }
+  .config_about { display: none }
 }
