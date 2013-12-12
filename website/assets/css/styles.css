@@ -24,8 +24,8 @@ h1, h2, h3, h4 {
 .about_content h2,
 .about_content h3,
 .about_content h4 {
-  font-family: 'Lato', sans-serif;
-  font-weight: 900;
+  font-family: "Helvetica Neue", "Lato", sans-serif;
+  font-weight: 300;
   text-decoration: underline
 }
 
