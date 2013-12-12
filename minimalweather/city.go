@@ -99,8 +99,8 @@ func findCity(l LookupInformation, out chan City) {
 
 		}
 
-		jsonResponse, _ := json.Marshal(location)
-		_, err = c.Do("SET", l.Key(), jsonResponse)
+		json_response, _ := json.Marshal(location)
+		_, err = c.Do("SET", l.Key(), json_response)
 
 		if err != nil {
 			panic(err)

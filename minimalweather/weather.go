@@ -91,8 +91,8 @@ func GetWeather(coords Coordinates) chan Weather {
 				RainIntensity: f.Currently.PrecipIntensity,
 				BringUmbrella: rain}
 
-			jsonResponse, _ := json.Marshal(weather)
-			_, err = c.Do("SETEX", key, 20*60, jsonResponse)
+			json_response, _ := json.Marshal(weather)
+			_, err = c.Do("SETEX", key, 20*60, json_response)
 
 			if err != nil {
 				panic(err)
