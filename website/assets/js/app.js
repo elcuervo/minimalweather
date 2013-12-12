@@ -105,7 +105,7 @@ var MinimalWeather = function(json) {
     if(this.mw.weather.bring_umbrella) icons["umbrella"](context)
 
     context.fillStyle = "white";
-    context.font = "3em Lato"; // temperature
+    context.font = "3em Helvetica"; // temperature
     context.textAlign = "right";
 
     context.fillText(temperature + "°" + unit, 200, 50);
@@ -163,6 +163,7 @@ MinimalWeather.prototype = {
           console.log("Ok, you moved. Let's find you current weather");
           if(self.cookieMonster.get("mw-easter")) {
             setTimeout(function() {
+              self.cookieMonster.del("mw-easter")
               self.refreshLocationTo(lat, lng);
             }, 5000);
           } else {
