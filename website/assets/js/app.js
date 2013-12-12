@@ -97,8 +97,13 @@ var MinimalWeather = function(json) {
     var context = canvas.getContext("2d");
     var gradient = context.createLinearGradient(0, 0, 0, canvas.height);
 
-    gradient.addColorStop(0, '#d55150');
-    gradient.addColorStop(1, '#e47d43');
+    if(this.mw.cold) {
+      gradient.addColorStop(0, '#1e5799');
+      gradient.addColorStop(1, '#7db9e8');
+    } else {
+      gradient.addColorStop(0, '#d55150');
+      gradient.addColorStop(1, '#e47d43');
+    }
 
     context.fillStyle = gradient;
     context.fillRect(0, 0, canvas.width, canvas.height);
@@ -122,7 +127,7 @@ var MinimalWeather = function(json) {
   var self = this;
 
   new Konami(function() {
-    self.refreshLocationTo("27.1167", "109.3667")
+    self.refreshLocationTo("-27.1167", "-109.3667")
     self.cookieMonster.set("mw-easter", true)
   });
 };
@@ -156,7 +161,8 @@ MinimalWeather.prototype = {
   geolocate: function() {
     var self = this;
     navigator.geolocation.getCurrentPosition(function(position) {
-      var cookieCity = self.cookieMonster.get("mw-city")
+      var cookieContent = self.cookieMonster.get("mw-city")
+      var cookieCity = decodeURIComponent(cookieContent.replace(/\+/g, ' '));
 
       var lat = position.coords.latitude;
       var lng = position.coords.longitude;
@@ -164,17 +170,19 @@ MinimalWeather.prototype = {
       $.getJSON('/city/' + lat + '/' + lng, function(response){
         if(response.city == undefined) return;
 
-        if(response.city != cookieCity) {
-          console.log("Ok, you moved. Let's find you current weather");
-          if(self.cookieMonster.get("mw-easter")) {
-            setTimeout(function() {
-              self.cookieMonster.del("mw-easter")
-              self.refreshLocationTo(lat, lng);
-            }, 5000);
-          } else {
-            self.refreshLocationTo(lat, lng)
-          }
+
+        if(self.cookieMonster.get("mw-easter")) {
+          setTimeout(function() {
+            self.cookieMonster.del("mw-easter")
+            self.refreshLocationTo(lat, lng);
+          }, 5000);
         }
+
+        if(response.city != cookieCity) {
+          console.log("Ok, you moved from " + cookieCity +  " to " + response.city + ". Let's find you current weather");
+          self.refreshLocationTo(lat, lng)
+        }
+
       })
     });
   }

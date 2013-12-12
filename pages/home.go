@@ -9,6 +9,7 @@ import (
 	"log"
 	"math"
 	"net/http"
+	"net/url"
 	"os"
 	"strconv"
 	"strings"
@@ -90,6 +91,12 @@ func (h *Homepage) handleUnit() {
 		h.cw.Unit = "C"
 	}
 
+	if h.cw.Weather.Temperature < 14 {
+		h.cw.Cold = true
+	} else {
+		h.cw.Cold = false
+	}
+
 	if h.cw.Unit == "F" {
 		h.cw.Weather.Temperature = ((h.cw.Weather.Temperature * 9) / 5) + 32
 	}
@@ -108,7 +115,7 @@ func (h *Homepage) saveCityCache(city mw.City) {
 
 	city_cookie := &http.Cookie{
 		Name:  "mw-city",
-		Value: fmt.Sprintf("%s", city.Name),
+		Value: fmt.Sprintf("%s", url.QueryEscape(city.Name)),
 		Path:  "/",
 	}
 

@@ -107,13 +107,26 @@ footer {
   width: 300px;
 }
 
-#container {
+.hot {
   background-color: #d55150;
   background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#d55150), to(#e47d43));
   background: -webkit-linear-gradient(top, #d55150, #e47d43);
   background: -moz-linear-gradient(top, #d55150, #e47d43);
   background: -ms-linear-gradient(top, #d55150, #e47d43);
   background: -o-linear-gradient(top, #d55150, #e47d43);
+}
+
+.cold {
+  background: #1e5799;
+  background: -moz-linear-gradient(top,  #1e5799 0%, #7db9e8 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#1e5799), color-stop(100%,#7db9e8));
+  background: -webkit-linear-gradient(top, #1e5799 0%,#7db9e8 100%);
+  background: -o-linear-gradient(top, #1e5799 0%,#7db9e8 100%);
+  background: -ms-linear-gradient(top, #1e5799 0%,#7db9e8 100%);
+  background: linear-gradient(to bottom, #1e5799 0%,#7db9e8 100%);
+}
+
+#container {
   min-height: 100%;
   position: relative;
   z-index: 2
@@ -155,6 +168,7 @@ footer {
   color: white;
   font-size: 3em;
   font-family: 'Lato', sans-serif;
+  font-weight: 900;
   text-align: center
 }
 

@@ -9,7 +9,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
-  <link href='http://fonts.googleapis.com/css?family=Lato:300' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Lato:300:900' rel='stylesheet' type='text/css'>
   <link href="/assets/img/splash-320x460.png" media="(device-width: 320px)" rel="apple-touch-startup-image">
   <link href="/assets/img/splash-640x920.png" media="(device-width: 320px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image">
   <link href="/assets/img/splash-768x1004.png" media="(device-width: 768px) and (orientation: portrait)" rel="apple-touch-startup-image">
@@ -69,7 +69,7 @@
     </div>
   </div>
 
-  <div id="container" class="pure-g-r">
+  <div id="container" class="{{ if .Cold }} cold {{ else }} hot {{ end }} pure-g-r">
     <div class="pure-u-1-2 minimal_weather">
         <div id="weather_conditions" class="pure-g-r">
           <div class="pure-u-1-1" id="weather_icon">

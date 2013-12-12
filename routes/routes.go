@@ -18,6 +18,7 @@ func isOk(r *http.Request, rm *mux.RouteMatch) bool {
 	var ref = r.Referer()
 
 	allowed := ref == "http://localhost:12345/" ||
+		ref == "http://nevermore.local:12345/" ||
 		ref == "http://minimalweather.com/" ||
 		ref == "http://nimbus.minimalweather.com/" ||
 		ref == "http://www.minimalweather.com/"
