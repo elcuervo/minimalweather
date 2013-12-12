@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/elcuervo/minimalweather/minimalweather"
+	"github.com/elcuervo/minimalweather/routes"
 	"github.com/yvasiyarov/gorelic"
 
 	"log"
@@ -15,7 +15,7 @@ func main() {
 	agent.NewrelicLicense = os.Getenv("NEW_RELIC_LICENSE_KEY")
 	agent.Run()
 
-	handler := minimalweather.Handler()
+	handler := routes.Handler()
 	port := ":" + os.Getenv("PORT")
 	http.Handle("/", handler)
 
