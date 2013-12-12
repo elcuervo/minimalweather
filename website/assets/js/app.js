@@ -140,7 +140,9 @@ MinimalWeather.prototype = {
     var changeUnit = function() {
       self.cookieMonster.set("mw-unit", this.id.toUpperCase());
     }
-    for(i in units) units[i].addEventListener("click", changeUnit);
+    for(i in units) {
+      if(units[i]) units[i].addEventListener("click", changeUnit);
+    }
   },
 
   bindRefresh: function(button) {

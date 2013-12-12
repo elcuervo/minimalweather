@@ -32,8 +32,11 @@
         </p>
 
         <div class="split-buttons plain-buttons">
-          <a href="/" id="c" class="button button-left">&deg;C</a>
-          <a href="/" id="f" class="button button-right">&deg;F</a>
+          {{ if eq .Unit "C" }}
+            <a href="/" id="f" class="button">&deg;F</a>
+          {{ else }}
+            <a href="/" id="c" class="button">&deg;C</a>
+          {{ end }}
         </div>
 
         <h2>Force Refresh</h2>
