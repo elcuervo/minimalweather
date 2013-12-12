@@ -91,7 +91,8 @@ func (h *Homepage) handleUnit() {
 		h.cw.Unit = "C"
 	}
 
-	if h.cw.Weather.Temperature < 14 {
+	// Based on @chadot knowladge < 17 is minimun to confort temperature
+	if h.cw.Weather.Temperature < 17 {
 		h.cw.Cold = true
 	} else {
 		h.cw.Cold = false
