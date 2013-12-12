@@ -123,10 +123,8 @@ func geolocate(req *http.Request) geoip.Geolocation {
         return <-GetLocation(user_addr)
 }
 
-func homepage(w http.ResponseWriter, req *http.Request) {
-        var cw *CityWeather
+func getCoords(req *http.Request) Coordinates {
         var coords Coordinates
-
         location_cookie, err := req.Cookie("mw-location")
 
         if err == nil {
@@ -141,11 +139,10 @@ func homepage(w http.ResponseWriter, req *http.Request) {
                 coords = Coordinates{ geo.Location.Latitude, geo.Location.Longitude }
         }
 
-        city := <-FindByCoords(coords)
-        weather := <-GetWeather(city.Coords)
+        return coords
+}
 
-        cw = &CityWeather{ City: city, Weather: weather }
-
+func handleUnit(req *http.Request, cw *CityWeather) {
         unit_cookie, err := req.Cookie("mw-unit")
         if err == nil {
                 cw.Unit = unit_cookie.Value
@@ -156,12 +153,12 @@ func homepage(w http.ResponseWriter, req *http.Request) {
         if cw.Unit == "F" {
                 cw.Weather.Temperature = ((cw.Weather.Temperature*9)/5)+32
         }
+}
 
-        lat, lng := city.Coords.Lat, city.Coords.Lng
-
+func saveCityCache(w http.ResponseWriter, city City) {
         cookie := &http.Cookie{
                 Name: "mw-location",
-                Value: fmt.Sprintf("%f|%f", lat, lng),
+                Value: fmt.Sprintf("%f|%f", city.Coords.Lat, city.Coords.Lng),
                 Path: "/",
         }
 
@@ -174,6 +171,18 @@ func homepage(w http.ResponseWriter, req *http.Request) {
         }
 
         http.SetCookie(w, city_cookie)
+}
+
+func homepage(w http.ResponseWriter, req *http.Request) {
+        var cw *CityWeather
+
+        coords := getCoords(req)
+        city := <-FindByCoords(coords)
+        weather := <-GetWeather(city.Coords)
+
+        cw = &CityWeather{ City: city, Weather: weather }
+        handleUnit(req, cw)
+        saveCityCache(w, city)
 
         t, _ := template.ParseFiles("./website/index.html")
         out, err := json.Marshal(cw)
@@ -197,11 +206,13 @@ func about(w http.ResponseWriter, req *http.Request) {
 }
 
 func isOk(r *http.Request, rm *mux.RouteMatch) bool {
-        ref := r.Referer()
+        var ref = r.Referer()
+
         allowed := ref == "http://localhost:12345/" ||
         ref == "http://minimalweather.com/" ||
         ref == "http://nimbus.minimalweather.com/" ||
         ref == "http://www.minimalweather.com/"
+
         return allowed
 }
 
