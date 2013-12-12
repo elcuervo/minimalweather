@@ -24,6 +24,11 @@ var MinimalWeather = function(json) {
   this.mw = JSON.parse(json);
   this.unit = localStorage.getItem("unit");
 
+  this.refreshLocationTo = function(lat, lng) {
+    this.cookieMonster.set("mw-location", lat + "|" + lng);
+    location.reload();
+  };
+
   this.findOrCreateElement = function(id, rel) {
     var iosIcon = document.getElementById(id);
 
@@ -111,6 +116,13 @@ var MinimalWeather = function(json) {
 
     appIcon.href = data;
   };
+
+  var self = this;
+
+  new Konami(function() {
+    self.refreshLocationTo("27.1167", "109.3667")
+    self.cookieMonster.set("mw-easter", true)
+  });
 };
 
 MinimalWeather.prototype = {
@@ -141,7 +153,6 @@ MinimalWeather.prototype = {
     var self = this;
     navigator.geolocation.getCurrentPosition(function(position) {
       var cookieCity = self.cookieMonster.get("mw-city")
-      //27.1167° S, 109.3667°
 
       var lat = position.coords.latitude;
       var lng = position.coords.longitude;
@@ -151,8 +162,13 @@ MinimalWeather.prototype = {
 
         if(response.city != cookieCity) {
           console.log("Ok, you moved. Let's find you current weather");
-          self.cookieMonster.set("mw-location", lat + "|" + lng);
-          location.reload();
+          if(self.cookieMonster.get("mw-easter")) {
+            setTimeout(function() {
+              self.refreshLocationTo(lat, lng);
+            }, 5000);
+          } else {
+            self.refreshLocationTo(lat, lng)
+          }
         }
       })
     });
