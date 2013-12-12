@@ -22,7 +22,6 @@ var weatherAsIcon = function(text) {
 
 var MinimalWeather = function(json) {
   this.mw = JSON.parse(json);
-  this.unit = localStorage.getItem("unit");
 
   this.refreshLocationTo = function(lat, lng) {
     this.cookieMonster.set("mw-location", lat + "|" + lng);
