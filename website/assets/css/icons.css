@@ -63,7 +63,7 @@ you can use the generic selector below, but it's slower:
   .icon-partly-cloudy-day,
   .icon-partly-cloudy-night,
 
-  .icon-,
+  .icon-relocating,
   .icon-compass,
   .icon-none,
   .icon-celsius,
@@ -91,7 +91,7 @@ you can use the generic selector below, but it's slower:
 .icon-rain:before { content: "\e008"; }
 .icon-hail:before { content: "\e00c"; }
 /* "Hacky default" */
-.icon-{
+.icon-relocating {
   -webkit-animation-name: spin;
   -webkit-animation-duration: 4000ms;
   -webkit-animation-iteration-count: infinite;
@@ -110,7 +110,7 @@ you can use the generic selector below, but it's slower:
   animation-iteration-count: infinite;
   animation-timing-function: linear;
 }
-.icon-:before { content: "\e00d"; }
+.icon-relocating:before { content: "\e00d"; }
 
 .icon-compass:before { content: "\e00d"; }
 .icon-cloudy:before { content: "\e00e"; }

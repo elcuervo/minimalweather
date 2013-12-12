@@ -24,6 +24,9 @@ var MinimalWeather = function(json) {
   this.mw = JSON.parse(json);
 
   this.refreshLocationTo = function(lat, lng) {
+    document.getElementById("city_name").textContent = "Relocating";
+    document.getElementById("condition_icon").className = "icon-relocating";
+
     this.cookieMonster.set("mw-location", lat + "|" + lng);
     location.reload();
   };
