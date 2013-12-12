@@ -250,6 +250,23 @@ footer {
   padding-top: 20px
 }
 
+@-webkit-keyframes fadeOut {
+    0% { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+@keyframes fadeOut {
+  0% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+#drag { opacity: 0 }
+
+.fadeOut {
+  -webkit-animation: fadeOut 3s;
+  animation: fadeOut 3s;
+}
+
 @media only screen
 and (min-device-width : 768px)
 and (max-device-width : 1024px)
