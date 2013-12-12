@@ -80,7 +80,6 @@ check_for_user_env_compile() {
   fi
 }
 
-
 check_for_github_token() {
   info "Checking GITHUB_AUTH_TOKEN to allow access to private repos"
   github_auth_token=$(heroku config:get GITHUB_AUTH_TOKEN)
@@ -94,6 +93,23 @@ check_for_github_token() {
   else
     ready
   fi
+}
+
+install_heroku_addons() {
+  info "Checking for new addons"
+
+  [ ! -f .heroku_addons ] && error ".heroku_addons file not found"
+
+  addons=$(sed 's/#.*//;/^\s*$/d' < .heroku_addons)
+
+  while read addon; do
+    heroku addons | grep "$addon" > /dev/null
+
+    if [[ $? != 0 ]]; then
+      heroku addons:add "$addon" > /dev/null
+      ok "Installed $addon";
+    fi
+  done < <(echo "$addons")
 }
 
 push_to_github() {
@@ -110,6 +126,8 @@ check_for_multi_buildpack
 check_for_netrc_buildpack
 check_for_user_env_compile
 check_for_github_token
+
+install_heroku_addons
 
 push_to_github
 deploy_application
