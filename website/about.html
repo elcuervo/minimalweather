@@ -16,6 +16,7 @@
   <div id="container" class="pure-g-r about">
     <div class="pure-u-1-2 about_content">
       <h1>What's so special with Minimal Weather now?</h1>
+      <img src="/assets/img/showcase.png" alt="Minimal Weather">
       <p>
         Minimal Weather does a cool trick. Which is update the app icon
         when you check the weather. That's a good thing to easily
@@ -30,6 +31,29 @@
 
       <h2>The technology behind it:</h2>
       <h3>The icon update</h3>
+      <img src="/assets/img/icon.png" alt="icon">
+      <p>The concept it's pretty easy actually. Apple provides a link rel='apple-touch-icon', their version of a favicon.</p>
+
+      <p>That's the special icon that the iOS device uses in the home screen.</p>
+
+      <p>I've started some experiments and then realizing two things:</p>
+
+      <ol>
+        <li>The icon gets read every time the app gets loaded and probably checked against any old version.</li>
+        <li>MobileSafari supports data-url content.</li>
+      </ol>
+      <p>Then I started this idea with some goals, do not use any images, as simple as possible and as little backend as possible.</p>
+
+      <h4>The truth behind the idea</h4>
+
+      <p>Initially I started with a pure HTML5 + javascript implementation. Using browser geolocation and canvas + a really pretty typography.</p>
+
+      <h5>The problems</h5>
+
+      <p>But things didn't worked as well as I was expecting. The geolocation being asynchronous proved to be a too slow information source to render the icon and let the device store the icon I was generating.</p>
+
+      <p>Also using the typography in the canvas element wasn't reliable enough, some times the generated canvas didn't include the weather icons because the loading + rendering time.</p>
+
       <h3>Language</h3>
       <img src="/assets/img/golang.png" alt="Go">
       <p>
@@ -100,9 +124,15 @@
       </p>
       <h3>Thanks to:</h3>
       <ul>
-        <li>@jiserra</li>
-        <li>@poteland</li>
-        <li>@inkel</li>
+        <li>
+          <a href="http://twitter.com/jisiera">@jiserra</a>
+        </li>
+        <li>
+          <a href="http://twitter.com/poteland">@poteland</a>
+        </li>
+        <li>
+          <a href="http://twitter.com/inkel">@inkel</a>
+        </li>
       </ul>
     </div>
 
