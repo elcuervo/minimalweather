@@ -53,10 +53,14 @@ func GetLocation(ip string) chan geoip.Geolocation {
                         log.Println("Geo locating")
                         locator := geoip.GeoIP{geo_user, geo_key, true}
                         g := locator.FindCity(ip)
-                        log.Println(ip)
+
+                        _, err := c.Do("HSET", "mw:stats", "maxmind", g.API.Remaining)
+			if err != nil {
+				log.Println(err)
+			}
 
 			json_response, _ := json.Marshal(g)
-			_, err := c.Do("SETEX", key, 200*60, json_response)
+			_, err = c.Do("SETEX", key, 200*60, json_response)
 
 			if err != nil {
 				panic(err)
