@@ -1,19 +1,19 @@
 package minimalweather
 
 import (
-        "os"
-        "fmt"
-        "log"
-        "encoding/json"
-	"github.com/garyburd/redigo/redis"
+	"encoding/json"
+	"fmt"
 	"github.com/elcuervo/geoip"
+	"github.com/garyburd/redigo/redis"
+	"log"
+	"os"
 )
 
 const location_prefix = "mw:geolocator:"
 
 var (
-        geo_user = os.Getenv("GEOLOCATION_USER")
-        geo_key = os.Getenv("GEOLOCATION_KEY")
+	geo_user = os.Getenv("GEOLOCATION_USER")
+	geo_key  = os.Getenv("GEOLOCATION_KEY")
 )
 
 func ClearGeolocationCache() {
@@ -30,31 +30,31 @@ func ClearGeolocationCache() {
 }
 
 func GetLocation(ip string) chan geoip.Geolocation {
-        geo_chann := make(chan geoip.Geolocation)
+	geo_chann := make(chan geoip.Geolocation)
 
 	key := fmt.Sprintf("%s%s", location_prefix, ip)
-	cached_geo , err := c.Do("GET", key)
+	cached_geo, err := c.Do("GET", key)
 
 	if err != nil {
 		panic(err)
 	}
 
-        go func() {
-                if cached_geo != nil {
-                        var geolocation geoip.Geolocation
-                        log.Println("Geo from cached")
+	go func() {
+		if cached_geo != nil {
+			var geolocation geoip.Geolocation
+			log.Println("Geo from cached")
 
 			str, _ := redis.String(cached_geo, nil)
 			bytes := []byte(str)
 			json.Unmarshal(bytes, &geolocation)
 
-                        geo_chann <- geolocation
-                } else {
-                        log.Println("Geo locating")
-                        locator := geoip.GeoIP{geo_user, geo_key, true}
-                        g := locator.FindCity(ip)
+			geo_chann <- geolocation
+		} else {
+			log.Println("Geo locating")
+			locator := geoip.GeoIP{geo_user, geo_key, true}
+			g := locator.FindCity(ip)
 
-                        _, err := c.Do("HSET", "mw:stats", "maxmind", g.API.Remaining)
+			_, err := c.Do("HSET", "mw:stats", "maxmind", g.API.Remaining)
 			if err != nil {
 				log.Println(err)
 			}
@@ -66,10 +66,10 @@ func GetLocation(ip string) chan geoip.Geolocation {
 				panic(err)
 			}
 
-                        geo_chann <- g
+			geo_chann <- g
 
-                }
-        }()
+		}
+	}()
 
-        return geo_chann
+	return geo_chann
 }

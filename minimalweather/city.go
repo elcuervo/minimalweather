@@ -14,10 +14,10 @@ const city_prefix = "mw:city:"
 type Coordinates geocoder.Coordinates
 
 type City struct {
-        Name   string `json:"city"`
-        Country string `json:"country"`
-        Coords Coordinates `json:"coordinates"`
-        Error  error `json:"-"`
+	Name    string      `json:"city"`
+	Country string      `json:"country"`
+	Coords  Coordinates `json:"coordinates"`
+	Error   error       `json:"-"`
 }
 
 func ClearCityCache() {
@@ -95,7 +95,7 @@ func findCity(l LookupInformation, out chan City) {
 		} else {
 			log.Printf("Checking city: %s\n", city.Name)
 			coords = Coordinates{city.Coordinates.Lat, city.Coordinates.Lng}
-                        location = &City{ Coords: coords, Country: city.Country, Name:   city.Name}
+			location = &City{Coords: coords, Country: city.Country, Name: city.Name}
 
 		}
 

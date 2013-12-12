@@ -2,14 +2,14 @@ package pages
 
 import (
 	"encoding/json"
+	mw "github.com/elcuervo/minimalweather/minimalweather"
+	"github.com/gorilla/mux"
+	"log"
 	"net/http"
 	"strconv"
-	"log"
-	"github.com/gorilla/mux"
-	mw "github.com/elcuervo/minimalweather/minimalweather"
 )
 
-type API struct {}
+type API struct{}
 
 func (api *API) CityByCoords(w http.ResponseWriter, req *http.Request) {
 	vars := mux.Vars(req)
@@ -19,10 +19,10 @@ func (api *API) CityByCoords(w http.ResponseWriter, req *http.Request) {
 
 	log.Println("city By Coords:", lat, lng)
 
-	coords := mw.Coordinates{ lat, lng }
+	coords := mw.Coordinates{lat, lng}
 	current_city := <-mw.FindByCoords(coords)
 
-        out, _ := json.Marshal(current_city)
+	out, _ := json.Marshal(current_city)
 	w.Write(out)
 }
 
@@ -34,7 +34,7 @@ func (api *API) WeatherByCoords(w http.ResponseWriter, req *http.Request) {
 
 	log.Println("By Coords:", lat, lng)
 
-	coords := mw.Coordinates{ lat, lng }
+	coords := mw.Coordinates{lat, lng}
 	current_city := mw.FindByCoords(coords)
 	current_weather := <-mw.GetWeather(coords)
 
@@ -45,8 +45,8 @@ func (api *API) WeatherByCoords(w http.ResponseWriter, req *http.Request) {
 
 func (api *API) outputWeatherAsJSON(current_city mw.City, current_weather mw.Weather) []byte {
 	city_weather := &CityWeather{
-		City:        current_city,
-		Weather:     current_weather}
+		City:    current_city,
+		Weather: current_weather}
 
 	out, _ := json.Marshal(city_weather)
 
@@ -68,4 +68,3 @@ func (api *API) WeatherByCity(w http.ResponseWriter, req *http.Request) {
 		w.Write(out)
 	}
 }
-

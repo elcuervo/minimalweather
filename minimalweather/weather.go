@@ -6,8 +6,8 @@ import (
 	"log"
 	"os"
 
-	"github.com/garyburd/redigo/redis"
 	forecast "github.com/elcuervo/forecast/v2"
+	"github.com/garyburd/redigo/redis"
 )
 
 const weather_prefix = "mw:weather:"
@@ -69,10 +69,10 @@ func GetWeather(coords Coordinates) chan Weather {
 
 			f, _ := forecast.Get(api_key, lat, lng, "now", forecast.SI)
 
-                        _, err := c.Do("HSET", "mw:stats", "forecast", f.APICalls)
-                        if err != nil {
-                                log.Println(err)
-                        }
+			_, err := c.Do("HSET", "mw:stats", "forecast", f.APICalls)
+			if err != nil {
+				log.Println(err)
+			}
 
 			// Look for the next 8 hours. See if it's going to rain
 			// at some point
