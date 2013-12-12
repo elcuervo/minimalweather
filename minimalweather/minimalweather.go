@@ -196,15 +196,24 @@ func about(w http.ResponseWriter, req *http.Request) {
         }
 }
 
+func isOk(r *http.Request, rm *mux.RouteMatch) bool {
+        ref := r.Referer()
+        allowed := ref == "http://localhost:12345/" ||
+        ref == "http://minimalweather.com/" ||
+        ref == "http://www.minimalweather.com/"
+        return allowed
+}
+
 func Handler() *mux.Router {
 	r := mux.NewRouter()
 
-	r.HandleFunc("/weather/{city}", weatherByCity).Methods("GET")
-	r.HandleFunc("/weather/{lat}/{lng}", weatherByCoords).Methods("GET")
-	r.HandleFunc("/city/{lat}/{lng}", cityByCoords).Methods("GET")
+	r.HandleFunc("/weather/{city}", weatherByCity).Methods("GET").MatcherFunc(isOk)
+	r.HandleFunc("/weather/{lat}/{lng}", weatherByCoords).Methods("GET").MatcherFunc(isOk)
+	r.HandleFunc("/city/{lat}/{lng}", cityByCoords).Methods("GET").MatcherFunc(isOk)
+
 	r.PathPrefix("/assets").Handler(http.FileServer(http.Dir("./website/")))
-        r.HandleFunc("/", homepage).Methods("GET")
         r.HandleFunc("/about", about).Methods("GET")
+        r.HandleFunc("/", homepage).Methods("GET")
 
 	return r
 }
