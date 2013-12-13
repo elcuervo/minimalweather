@@ -68,35 +68,6 @@ footer {
   animation-fill-mode: both;
 }
 
-@-webkit-keyframes fadeIn {
-  0% {opacity: 0;}
-  100% {opacity: 1;}
-}
-
-@-moz-keyframes fadeIn {
-  0% {opacity: 0;}
-  100% {opacity: 1;}
-}
-
-@-o-keyframes fadeIn {
-    0% {opacity: 0;}
-    100% {opacity: 1;}
-}
-
-@keyframes fadeIn {
-  0% {opacity: 0;}
-  100% {opacity: 1;}
-}
-
-.fadeIn {
-  -webkit-animation-iteration-count: 1;
-  -webkit-animation-name: fadeIn;
-  -moz-animation-name: fadeIn;
-  -o-animation-name: fadeIn;
-  animation-name: fadeIn;
-}
-
-
 .drawer {
   overflow: auto;
   position: absolute;
@@ -252,7 +223,11 @@ footer {
 }
 
 .minimal_weather {
-  padding-top: 5%;
+  width: 50%;
+  height: 60%;
+  margin: auto;
+  position: absolute;
+  top: 0; left: 0; bottom: 0; right: 0;
 }
 
 .config {
@@ -279,10 +254,11 @@ footer {
 }
 
 .fadeOut {
-  -webkit-animation: fadeOut 3s;
-  animation: fadeOut 3s;
+  -webkit-animation: fadeOut 5s;
+  animation: fadeOut 5s;
 }
 
+/* iPad Mini */
 @media only screen
 and (min-device-width : 768px)
 and (max-device-width : 1024px)
@@ -293,12 +269,52 @@ and (-webkit-min-device-pixel-ratio: 1)  {
   .social { font-size: 4em; }
 }
 
+/* iPad Mini landscape */
+@media only screen
+and (min-device-width : 768px)
+and (max-device-width : 1024px)
+and (orientation : landscape)
+and (-webkit-min-device-pixel-ratio: 1)  {
+  .minimal_weather { height: 80%; }
+}
+
+/* iPhone 5 */
+@media only screen
+and (min-device-width : 320px)
+and (max-device-width : 568px) {
+  .config { font-size: 1.3em }
+  .config_media { display: none }
+  .config_about { display: none }
+}
+
+/* iPhone 5 landscape */
 @media only screen
 and (min-device-width : 320px)
 and (max-device-width : 568px)
 and (orientation : landscape) {
-  .minimal_weather { font-size: 1em; }
+  .minimal_weather {
+    font-size: 1em;
+    height: 80%
+  }
   .social { display: none }
-  .config_media { display: none }
-  .config_about { display: none }
+}
+
+/* iPhone 2G, 3G, 4, 4S */
+@media only screen
+and (min-device-width : 320px)
+and (max-device-width : 480px) {
+  .minimal_weather {
+    font-size: 1em;
+    height: 60%
+  }
+}
+
+/* iPhone 2G, 3G, 4, 4S landscape */
+@media only screen
+and (min-device-width : 320px)
+and (max-device-width : 480px)
+and (orientation : landscape) {
+  .minimal_weather {
+    height: 90%
+  }
 }
