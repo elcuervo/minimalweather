@@ -16,6 +16,12 @@ h1, h2, h3, h4 {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
+#sun {
+  text-decoration: none;
+  font-size: 7em;
+  text-align: center;
+}
+
 .about_content {
   font-size: 2em
 }
