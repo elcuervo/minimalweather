@@ -88,7 +88,11 @@ func (h *Homepage) handleUnit() {
 	if err == nil {
 		h.cw.Unit = unit_cookie.Value
 	} else {
-		h.cw.Unit = "C"
+                if h.cw.City.Country == "US" {
+                        h.cw.Unit = "F"
+                } else {
+                        h.cw.Unit = "C"
+                }
 	}
 
 	// Based on @chadot knowladge < 17 is minimun to confort temperature
