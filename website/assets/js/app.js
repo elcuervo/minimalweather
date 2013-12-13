@@ -82,7 +82,7 @@ var MinimalWeather = function(json) {
 
   this.usesFarenheit = function() {
     var cookieCache = this.cookieMonster.get("mw-unit").toUpperCase() == "F";
-    return cookieCache || this.mw.city.country == "USA";
+    return cookieCache || this.mw.city.country == "US";
   };
 
   this.createAppIcon = function(iconFn) {
