@@ -43,7 +43,7 @@ func GetWeather(coords Coordinates) chan Weather {
 	cached_weather, err := c.Do("GET", key)
 
 	if err != nil {
-		panic(err)
+		log.Println(err)
 	}
 
 	go func() {
@@ -95,7 +95,7 @@ func GetWeather(coords Coordinates) chan Weather {
 			_, err = c.Do("SETEX", key, 20*60, json_response)
 
 			if err != nil {
-				panic(err)
+				log.Println(err)
 			}
 
 			city_weather <- *weather

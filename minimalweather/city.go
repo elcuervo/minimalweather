@@ -63,7 +63,7 @@ func findCity(l LookupInformation, out chan City) {
 	cached_city, err := c.Do("GET", l.Key())
 
 	if err != nil {
-		panic(err)
+		log.Println(err)
 	}
 
 	if cached_city != nil {
@@ -103,7 +103,7 @@ func findCity(l LookupInformation, out chan City) {
 		_, err = c.Do("SET", l.Key(), json_response)
 
 		if err != nil {
-			panic(err)
+			log.Println(err)
 		}
 
 		out <- *location
