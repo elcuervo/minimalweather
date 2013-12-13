@@ -36,7 +36,7 @@ func GetLocation(ip string) chan geoip.Geolocation {
 	cached_geo, err := c.Do("GET", key)
 
 	if err != nil {
-		panic(err)
+		log.Println(err)
 	}
 
 	go func() {
@@ -63,7 +63,7 @@ func GetLocation(ip string) chan geoip.Geolocation {
 			_, err = c.Do("SETEX", key, 200*60, json_response)
 
 			if err != nil {
-				panic(err)
+				log.Println(err)
 			}
 
 			geo_chann <- g
