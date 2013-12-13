@@ -88,13 +88,13 @@ footer {
 }
 
 .cold {
-  background: #1e5799;
-  background: -moz-linear-gradient(top,  #1e5799 0%, #7db9e8 100%);
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#1e5799), color-stop(100%,#7db9e8));
-  background: -webkit-linear-gradient(top, #1e5799 0%,#7db9e8 100%);
-  background: -o-linear-gradient(top, #1e5799 0%,#7db9e8 100%);
-  background: -ms-linear-gradient(top, #1e5799 0%,#7db9e8 100%);
-  background: linear-gradient(to bottom, #1e5799 0%,#7db9e8 100%);
+  background: #5a7b97;
+  background: -moz-linear-gradient(top,  #5a7b97 0%, #d9eeea 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#5a7b97), color-stop(100%,#d9eeea));
+  background: -webkit-linear-gradient(top,  #5a7b97 0%,#d9eeea 100%);
+  background: -o-linear-gradient(top,  #5a7b97 0%,#d9eeea 100%);
+  background: -ms-linear-gradient(top,  #5a7b97 0%,#d9eeea 100%);
+  background: linear-gradient(to bottom,  #5a7b97 0%,#d9eeea 100%);
 }
 
 #container {

@@ -98,8 +98,8 @@ var MinimalWeather = function(json) {
     var gradient = context.createLinearGradient(0, 0, 0, canvas.height);
 
     if(this.mw.cold) {
-      gradient.addColorStop(0, '#1e5799');
-      gradient.addColorStop(1, '#7db9e8');
+      gradient.addColorStop(0, '#5a7b97 ');
+      gradient.addColorStop(1, '#d9eeea ');
     } else {
       gradient.addColorStop(0, '#d55150');
       gradient.addColorStop(1, '#e47d43');
