@@ -59,17 +59,6 @@
   background: linear-gradient(to bottom,  #cedce7 0%,#596a72 100%);
 }
 
-.page5 {
-  color: black;
-  background: #ffffff;
-  background: -moz-linear-gradient(top,  #ffffff 0%, #e5e5e5 100%);
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#e5e5e5));
-  background: -webkit-linear-gradient(top,  #ffffff 0%,#e5e5e5 100%);
-  background: -o-linear-gradient(top,  #ffffff 0%,#e5e5e5 100%);
-  background: -ms-linear-gradient(top,  #ffffff 0%,#e5e5e5 100%);
-  background: linear-gradient(to bottom,  #ffffff 0%,#e5e5e5 100%);
-}
-
 .get-it {
   font-size: 125%;
   border: 1px solid black;
@@ -78,4 +67,10 @@
 .colors {
   float: left;
   padding-left: 8%
+}
+
+.raining {
+  float: right;
+  position: relative;
+  right: -50px
 }
