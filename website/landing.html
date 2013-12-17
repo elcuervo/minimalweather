@@ -29,6 +29,9 @@
         The app will update its icon, temperature and colors depending on the
         current conditions so you can check it without entering the app.
       </p>
+      <p>
+        <a id="desktop" class="pure-button" href="/">Use in the desktop</a>
+      </p>
     </div>
   </div>
 
@@ -126,6 +129,16 @@
     $(function() {
       $("a[rel*=leanModal]").leanModal();
       $("#content").onepage_scroll({ sectionContainer: "section" });
+      $("#desktop").click(function() {
+        var key = "mw-desktop";
+        var value = "1";
+        var date = new Date();
+
+        date.setTime(date.getTime() + (60*24*60*60*1000));
+        var expires = "; expires=" + date.toGMTString();
+
+        document.cookie = key + '=' + value + expires +  'path=/'
+      });
     });
   </script>
 

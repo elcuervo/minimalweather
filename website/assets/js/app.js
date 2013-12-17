@@ -184,6 +184,7 @@ MinimalWeather.prototype = {
     var self = this;
     button.addEventListener("click", function() {
       self.cookieMonster.del("mw-city");
+      self.cookieMonster.del("mw-desktop");
       self.cookieMonster.del("mw-location");
     })
   },
