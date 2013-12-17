@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="pragma" content="no-cache">
+  <link href='http://fonts.googleapis.com/css?family=Lato:300:900' rel='stylesheet' type='text/css'>
+  <meta name="viewport" content="width=device-width, minimum-scale=0.6, maximum-scale=0.6" />
+  <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.3.0/pure-min.css">
+  <link rel="stylesheet" href="/assets/css/styles.css" />
+  <link rel="stylesheet" href="/assets/css/icons.css" />
+  <link rel="stylesheet" href="/assets/css/landing.css" />
+  <link rel="stylesheet" href="/assets/css/onepage-scroll.css" />
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <script src="/assets/js/jquery.onepage-scroll.min.js"></script>
+  <title>Minimal Weather</title>
+</head>
+<body>
+
+  <div id="container" class="pure-g-r landing">
+    <div class="pure-u-1-2 landing_content" id="content">
+
+      <!-- Intro -->
+      <section class="page1">
+        <div class="page_container">
+          <div class="center">
+            <div> <img src="/assets/img/landing/presentation.png" alt=""> </div>
+            <a class="pure-button pure-button-primary get-it" href="#">Install Minimal Weather</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Colors -->
+      <section class="page2">
+        <div class="page_container">
+          <div class="center">
+            <div class="colors">
+              <img src="/assets/img/landing/colors.png" alt="Colors">
+            </div>
+            <h1>Not only the temperature changes</h1>
+            <p>
+              Colors let you realize quicker what is happening outside.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Feelings -->
+      <section class="page3">
+        <div class="page_container">
+          <div class="center">
+              <img src="/assets/img/landing/feeling.png" alt="Feeling">
+            <h1>It's not about the numbers, it's about the feeling</h1>
+            <p>
+              The temperature you will see it's not the actual temperature but
+              the apparent temperature.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Umbrella -->
+      <section class="page4">
+        <div class="page_container">
+          <div class="center">
+            <h1>Be prepared for change</h1>
+            <p>
+              Sometimes it's a great day outside and suddenly your picnic gets
+              screwed by the rain.
+              Now you can see if there's a chance of rain important enough to
+              get your umbrella
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Open source -->
+      <section class="page5">
+        <div class="page_container">
+          <div class="center">
+            <h1>Give something back</h1>
+            <p>
+              Minimal Weather is opensource, you can contribute or change the
+              course of the app.
+            </p>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <script>
+    $(function() {
+      $("#content").onepage_scroll({ sectionContainer: "section" });
+    });
+  </script>
+
+  <script>
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-33584289-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+     var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+     ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+
+     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+     })();
+  </script>
+</body>
+</html>

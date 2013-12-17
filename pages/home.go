@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/elcuervo/geoip"
 	mw "github.com/elcuervo/minimalweather/minimalweather"
+        "github.com/ianoshen/uaparser"
 	"html/template"
 	"log"
 	"math"
@@ -139,7 +140,12 @@ func (h *Homepage) saveCityCache(city mw.City) {
 	http.SetCookie(h.w, city_cookie)
 }
 
-func (h *Homepage) Render() {
+func (h *Homepage) isiOS() bool {
+        ua := uaparser.Parse(h.r.UserAgent())
+        return ua.Device.Name == "iPad" || ua.Device.Name == "iPod" || ua.Device.Name == "iPhone"
+}
+
+func (h *Homepage) weatherApp() {
 	coords := h.getCoords()
 	city := <-mw.FindByCoords(coords)
 	weather := <-mw.GetWeather(city.Coords)
@@ -158,6 +164,25 @@ func (h *Homepage) Render() {
 	if err != nil {
 		http.Error(h.w, err.Error(), http.StatusInternalServerError)
 	}
+}
+
+type Landing struct{}
+
+func (h *Homepage) landingPage() {
+	t, _ := template.ParseFiles("./website/landing.html")
+        err := t.Execute(h.w, new(Landing))
+
+	if err != nil {
+		http.Error(h.w, err.Error(), http.StatusInternalServerError)
+	}
+}
+
+func (h *Homepage) Render() {
+        if h.isiOS() {
+                h.weatherApp()
+        } else {
+                h.landingPage()
+        }
 }
 
 func NewHomepage(w http.ResponseWriter, req *http.Request) *Homepage {

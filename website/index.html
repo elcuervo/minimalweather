@@ -155,7 +155,14 @@
   <canvas id="ios_icon_generator"></canvas>
 
   <script type="text/javascript">
+    var ipad = BrowserDetect.OS == "iPhone/iPad" &&
+               BrowserDetect.browser == "Safari";
+
+    var iphone = BrowserDetect.OS == "iPhone/iPod" &&
+                 BrowserDetect.browser == "Safari";
+
     var mw = new MinimalWeather({{ .JSON }});
+
     mw.bindRefresh(document.getElementById("force_refresh"));
     mw.bindUnits([
       document.getElementById("c"),
@@ -164,16 +171,15 @@
     mw.generateIcon();
     mw.geolocate();
 
-    var ipad = BrowserDetect.OS == "iPhone/iPad" &&
-               BrowserDetect.browser == "Safari";
-
     new Snap({
       element: document.getElementById("container"),
       disable: "right",
       maxPosition: ipad ? 600 : 300,
       minPosition: ipad ? -600 : -300
     });
+  </script>
 
+  <script>
     var _gaq = _gaq || [];
     _gaq.push(['_setAccount', 'UA-33584289-1']);
     _gaq.push(['_trackPageview']);

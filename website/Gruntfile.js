@@ -31,7 +31,6 @@ module.exports = function(grunt) {
             "assets/css/pure.css",
             "assets/css/icons.css",
             "assets/css/styles.css",
-            "assets/css/add2home.css",
 
             "assets/js/libs/snapjs/snap.css"
           ]
@@ -50,7 +49,6 @@ module.exports = function(grunt) {
           "assets/js/browser_detect.js",
           "assets/js/app.js",
           "assets/js/zepto.min.js",
-          "assets/js/add2home.js",
           "assets/js/libs/snapjs/snap.js"
         ],
         dest: "assets/js/<%= pkg.name %>.min.js"
