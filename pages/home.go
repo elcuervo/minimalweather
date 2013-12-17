@@ -106,11 +106,11 @@ func (h *Homepage) handleUnit() {
 	}
 
 	switch {
-	case h.cw.Weather.Temperature < 17:
+	case h.cw.Weather.Temperature < 18:
 		h.cw.Gradient = h.cw.Gradient + "cold"
 	case h.cw.Weather.Temperature > 17 && h.cw.Weather.Temperature < 21:
 		h.cw.Gradient = h.cw.Gradient + "normal"
-	case h.cw.Weather.Temperature > 21:
+	case h.cw.Weather.Temperature > 20:
 		h.cw.Gradient = h.cw.Gradient + "hot"
 	}
 

@@ -94,13 +94,13 @@ footer {
   background: linear-gradient(to bottom,  #5a7b97 0%,#d9eeea 100%);
 }
 .day_normal {
-  background: #c3eae1;
-  background: -moz-linear-gradient(top,  #3c96b8 0%, #c3eae1 100%);
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#3c96b8 ), color-stop(100%,#c3eae1 ));
-  background: -webkit-linear-gradient(top,  #3c96b8 0%,#c3eae1 100%);
-  background: -o-linear-gradient(top,  #3c96b8 0%,#c3eae1 100%);
-  background: -ms-linear-gradient(top,  #3c96b8 0%,#c3eae1 100%);
-  background: linear-gradient(to bottom,  #3c96b8 0%,#c3eae1 100%);
+  background: #90d5c6;
+  background: -moz-linear-gradient(top,  #0e8cb9 0%, #90d5c6 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#0e8cb9 ), color-stop(100%,#90d5c6 ));
+  background: -webkit-linear-gradient(top,  #0e8cb9 0%,#90d5c6 100%);
+  background: -o-linear-gradient(top,  #0e8cb9 0%,#90d5c6 100%);
+  background: -ms-linear-gradient(top,  #0e8cb9 0%,#90d5c6 100%);
+  background: linear-gradient(to bottom,  #0e8cb9 0%,#90d5c6 100%);
 }
 .day_hot {
   background-color: #d55150;

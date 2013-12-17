@@ -94,8 +94,8 @@ var MinimalWeather = function(json) {
         break;
       case "day_normal":
         console.log("Nice");
-        gradient.addColorStop(0, '#3c96b8');
-        gradient.addColorStop(1, '#c3eae1');
+        gradient.addColorStop(0, '#0e8cb9');
+        gradient.addColorStop(1, '#90d5c6');
         break;
       case "day_hot":
         console.log("Ufff");
