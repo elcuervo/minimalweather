@@ -122,7 +122,6 @@ var MinimalWeather = function(json) {
 
   this.createAppIcon = function(iconFn) {
     var iOSIcon = this.findOrCreateElement("ios_icon", "apple-touch-icon-precomposed");
-    var androidIcon = this.findOrCreateElement("android_icon", "shortcut icon");
 
     var canvas = document.getElementById("ios_icon_generator");
     var temperature = Math.floor(this.mw.weather.temperature);
@@ -153,7 +152,6 @@ var MinimalWeather = function(json) {
     var data = canvas.toDataURL("image/png");
 
     iOSIcon.href = data;
-    androidIcon.href = data;
   };
 
   var self = this;
