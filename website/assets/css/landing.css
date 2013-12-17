@@ -98,9 +98,19 @@ h1 {
 }
 
 .colors_content {
-  padding: 10%;
+  padding: 17%;
   float: right;
-  width: 600px
+  width: 400px
+}
+
+.feeling_content {
+  width: 600px;
+  padding-top: 10%
+}
+
+.feeling_img {
+  padding-top: 80px;
+  float: right;
 }
 
 .onepage-pagination li a.active:before {
