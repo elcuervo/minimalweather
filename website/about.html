@@ -18,18 +18,18 @@
       <a href="/" id="sun">
         <div class="icon-clear-day"></div>
       </a>
-      <h1>What's so special with <a href="/">Minimal Weather</a> now?</h1>
+      <h1>What's so special about <a href="/">Minimal Weather</a> now?</h1>
       <img src="/assets/img/showcase.png" alt="Minimal Weather">
       <p>
-        <a href="/">Minimal Weather</a> does a cool trick. Which is update the app icon
-        when you check the weather. That's a good thing to easily
-        remember how you should go out.
+        <a href="/">Minimal Weather</a> does a cool trick, which is updating the app icon
+        when you check the weather. That's a good thing, it helps you
+        knowing what to wear to go out.
       </p>
 
       <p>
-        One of the new tricks that it has now it's that it'll show you
-        an umbrella if there's a chance of rain in the next 8 hours. So
-        then you can be aware of it before going to work.
+        One of the new tricks it has, is showing you
+        an umbrella if there's a chance of rain in the next 8 hours. 
+        That way you can be aware of rain before going to work.
       </p>
 
       <p>
@@ -38,8 +38,8 @@
       </p>
 
       <p>
-        Also it changes colors based on the confort temperature. So you can
-        get a coat or not ;).
+        Also, it changes colors based on the comfort temperature, so
+        you will know if you have to get a coat or not ;).
       </p>
 
       <img src="/assets/img/hot_and_cold.png" alt="Hot and cold">
@@ -47,17 +47,17 @@
       <h2>The technology behind it:</h2>
       <h3>The icon update</h3>
       <img src="/assets/img/icon.png" alt="icon">
-      <p>The concept it's pretty easy actually. Apple provides a link rel='apple-touch-icon', their version of a favicon.</p>
+      <p>The concept is pretty easy actually. Apple provides a link rel='apple-touch-icon', their version of a favicon.</p>
 
       <p>That's the special icon that the iOS device uses in the home screen.</p>
 
-      <p>I've started some experiments and then realizing two things:</p>
+      <p>I started some experiments and then realized two things:</p>
 
       <ol>
-        <li>The icon gets read every time the app gets loaded and probably checked against any old version.</li>
+        <li>The icon is read every time the app gets loaded and probably checked against any old version.</li>
         <li>MobileSafari supports data-url content.</li>
       </ol>
-      <p>Then I started this idea with some goals, do not use any images, as simple as possible and as little backend as possible.</p>
+      <p>Then I started this idea with some goals, to not use any images, as simple as possible and as little backend as possible.</p>
 
       <h4>The truth behind the idea</h4>
 
@@ -65,9 +65,14 @@
 
       <h5>The problems</h5>
 
-      <p>But things didn't worked as well as I was expecting. The geolocation being asynchronous proved to be a too slow information source to render the icon and let the device store the icon I was generating.</p>
+      <p>But things didn't work as well as I was expecting. The
+      geolocation being asynchronous proved to be too slow as an
+      information source to render the icon and allow the device to store
+      the icon I was generating.</p>
 
-      <p>Also using the typography in the canvas element wasn't reliable enough, some times the generated canvas didn't include the weather icons because the loading + rendering time.</p>
+      <p>Also using the typography in the canvas element wasn't
+      reliable enough, some times the generated canvas didn't include
+      the weather icons because of the loading + rendering time.</p>
 
       <h3>Language</h3>
       <img src="/assets/img/golang.png" alt="Go">
@@ -76,7 +81,7 @@
         <a href="http://golang.org">Go</a>
       </p>
       <p>
-        The backend of the application is written in Go. I choose Go for several
+        The backend of the application is written in Go. I chose Go for several
         reasons:
       </p>
       <ul>
@@ -95,7 +100,7 @@
       </p>
       <p>
         If you take a look to the code you'll realize that there's an IP
-        geolocation but when you use the app it asks you about allowing HTML5
+        geolocation but when you use the app it asks you to allow HTML5
         Geolocation.
       </p>
       <p>
@@ -114,12 +119,12 @@
       <p>
         I know that there are amazing libs out there and I really tried to apply
         them to Minimal Weather but I found a huge overhead in development and
-        in the final product so I'm using vanilla JS. The only place where a lib
-        is used is to do a geolocation check and I choose zepto for this.
+        in the final product, so I'm using vanilla JS. The only place where a lib
+        is used is to do a geolocation check and I chose zepto for this.
       </p>
       <p>
-        Keeping things simple is what allows this app to exists. A quick
-        execution helps the canvas to be generated. Few overhead makes this
+        Keeping things simple is what allows this app to exist. A quick
+        execution helps the canvas to be generated. Little overhead makes this
         developer happy.
       </p>
       <h3>Database</h3>
@@ -129,17 +134,17 @@
         <a href="http://openredis.com">OpenRedis</a>
       </p>
       <p>
-        The database that uses Minimal Weather is Redis thanks to the
+        The database Minimal Weather uses is Redis thanks to the
         OpenRedis guys.
 
-        There are a few reasons on why to use Redis. One of those
-        reasons is because I really like it but besides that the key
+        There are a few reasons on why using Redis. One of these
+        reasons is because I really like it but besides that, the key
         expiration helped me a lot to handle the weather, ip and
         location caches.
       </p>
       <h3>Thanks to:</h3>
       <p>
-        I can only make this projects thanks to friends that hunt bugs and give
+        I can only make this project thanks to friends that hunt bugs and give
         me amazing feedback. Love you guys.
       </p>
       <ul>
