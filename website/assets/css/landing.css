@@ -8,7 +8,28 @@
 #content {
   float: left;
   width: 100%;
+  font-family: "Lato", sans-serif;
   margin: 0 auto;
+}
+
+#wrapper {
+  width: 50%;
+  top: 30%;
+  margin: 0 auto;
+  padding: 40px;
+  background: white
+}
+
+p {
+  font-size: 1.3em
+}
+
+h1, h2, h3 {
+  font-family: "Lato", sans-serif;
+}
+
+h1 {
+  font-size: 3em
 }
 
 #content section .page_container {
@@ -30,13 +51,13 @@
 
 .page2 {
   color: black;
-  background: #feffe8;
-  background: -moz-linear-gradient(top,  #feffe8 0%, #d6dbbf 100%);
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#feffe8), color-stop(100%,#d6dbbf));
-  background: -webkit-linear-gradient(top,  #feffe8 0%,#d6dbbf 100%);
-  background: -o-linear-gradient(top,  #feffe8 0%,#d6dbbf 100%);
-  background: -ms-linear-gradient(top,  #feffe8 0%,#d6dbbf 100%);
-  background: linear-gradient(to bottom,  #feffe8 0%,#d6dbbf 100%);
+  background: #b4df5b;
+  background: -moz-linear-gradient(top,  #b4df5b 0%, #b4df5b 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#b4df5b), color-stop(100%,#b4df5b));
+  background: -webkit-linear-gradient(top,  #b4df5b 0%,#b4df5b 100%);
+  background: -o-linear-gradient(top,  #b4df5b 0%,#b4df5b 100%);
+  background: -ms-linear-gradient(top,  #b4df5b 0%,#b4df5b 100%);
+  background: linear-gradient(to bottom,  #b4df5b 0%,#b4df5b 100%);
 }
 
 .page3 {
@@ -87,5 +108,17 @@
 }
 
 #get_it {
+  color: black;
   display: none
+}
+
+.raining_content {
+  padding: 15%;
+  width: 400px
+}
+
+.colors_content {
+  padding: 10%;
+  float: right;
+  width: 600px
 }
