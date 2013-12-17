@@ -50,8 +50,10 @@ h1 {
 }
 
 .get-it {
-  font-size: 125%;
-  border: 1px solid black;
+  margin-top: 20px;
+  color: #596a72;
+  background-color: rgba(255, 255, 255, 0.6);
+  font-size: 200%;
 }
 
 .colors {
@@ -90,4 +92,13 @@ h1 {
   padding: 10%;
   float: right;
   width: 600px
+}
+
+.onepage-pagination li a.active:before {
+  background: white;
+  border: 1px solid white;
+}
+
+.onepage-pagination li a:before {
+  background: rgba(255, 255, 255, 0.85);
 }
