@@ -56,6 +56,10 @@ h1 {
   font-size: 200%;
 }
 
+#title {
+  color: rgba(255, 255, 255, 0.8);
+}
+
 .colors {
   float: left;
   padding-left: 8%
