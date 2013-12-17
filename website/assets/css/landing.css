@@ -23,7 +23,7 @@ html {
 }
 
 #wrapper {
-  width: 50%;
+  width: 30%;
   top: 30%;
   margin: 0 auto;
   padding: 40px;
@@ -32,6 +32,11 @@ html {
 
 p {
   font-size: 1.3em
+}
+
+h2 {
+  font-size: 1.8em;
+  font-weight: 600
 }
 
 h1, h2, h3 {
