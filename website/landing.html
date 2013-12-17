@@ -13,10 +13,18 @@
   <link rel="stylesheet" href="/assets/css/onepage-scroll.css" />
 
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <script src="/assets/js/jquery.leanModal.min.js"></script>
   <script src="/assets/js/jquery.onepage-scroll.min.js"></script>
   <title>Minimal Weather</title>
 </head>
 <body>
+  <div id="get_it">
+    <img src="/assets/img/shortcut_icon.png" alt="Logo">
+    <p>
+      Minimal Weather is a web app so just enter with your phone to this site and
+      add it to your homescreen and that's it.
+    </p>
+  </div>
 
   <div id="container" class="pure-g-r landing">
     <div class="pure-u-1-2 landing_content" id="content">
@@ -26,7 +34,7 @@
         <div class="page_container">
           <div class="center">
             <div> <img src="/assets/img/landing/presentation.png" alt=""> </div>
-            <a class="pure-button pure-button-primary get-it" href="#">Install Minimal Weather</a>
+            <a class="pure-button pure-button-primary get-it" rel="leanModal" href="#get_it">Install Minimal Weather</a>
           </div>
         </div>
       </section>
@@ -83,6 +91,7 @@
 
   <script>
     $(function() {
+      $("a[rel*=leanModal]").leanModal();
       $("#content").onepage_scroll({ sectionContainer: "section" });
     });
   </script>
