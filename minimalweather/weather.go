@@ -87,7 +87,7 @@ func GetWeather(coords Coordinates) chan Weather {
 				Coordinates:   coords,
 				Condition:     f.Currently.Summary,
 				Icon:          f.Currently.Icon,
-				Temperature:   f.Currently.Temperature,
+				Temperature:   f.Currently.ApparentTemperature,
 				RainIntensity: f.Currently.PrecipIntensity,
 				BringUmbrella: rain}
 
