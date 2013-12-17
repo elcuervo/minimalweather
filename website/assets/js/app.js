@@ -85,8 +85,45 @@ var MinimalWeather = function(json) {
     return cookieCache || this.mw.city.country == "US";
   };
 
+  this.applyBackground = function(gradient, condition) {
+    switch(condition) {
+      case "day_cold":
+        console.log("Brrrr");
+        gradient.addColorStop(0, '#5a7b97');
+        gradient.addColorStop(1, '#d9eeea');
+        break;
+      case "day_normal":
+        console.log("Nice");
+        gradient.addColorStop(0, '#3c96b8');
+        gradient.addColorStop(1, '#c3eae1');
+        break;
+      case "day_hot":
+        console.log("Ufff");
+        gradient.addColorStop(0, '#d55150');
+        gradient.addColorStop(1, '#e47d43');
+        break;
+      case "night_cold":
+        console.log("BrrZzzz");
+        gradient.addColorStop(0, '#2b4a65');
+        gradient.addColorStop(1, '#87b0db');
+        break;
+      case "night_normal":
+        console.log("Zzzz");
+        gradient.addColorStop(0, '#044b9a');
+        gradient.addColorStop(1, '#49bed7');
+        break;
+      case "night_hot":
+        console.log("UfffZzzz");
+        gradient.addColorStop(0, '#43139a');
+        gradient.addColorStop(1, '#e98f8f');
+        break;
+    }
+  };
+
   this.createAppIcon = function(iconFn) {
-    var appIcon = this.findOrCreateElement("ios_icon", "apple-touch-icon-precomposed");
+    var iOSIcon = this.findOrCreateElement("ios_icon", "apple-touch-icon-precomposed");
+    var androidIcon = this.findOrCreateElement("android_icon", "shortcut icon");
+
     var canvas = document.getElementById("ios_icon_generator");
     var temperature = Math.floor(this.mw.weather.temperature);
     var unit = this.mw.unit;
@@ -97,13 +134,7 @@ var MinimalWeather = function(json) {
     var context = canvas.getContext("2d");
     var gradient = context.createLinearGradient(0, 0, 0, canvas.height);
 
-    if(this.mw.cold) {
-      gradient.addColorStop(0, '#5a7b97 ');
-      gradient.addColorStop(1, '#d9eeea ');
-    } else {
-      gradient.addColorStop(0, '#d55150');
-      gradient.addColorStop(1, '#e47d43');
-    }
+    this.applyBackground(gradient, this.mw.gradient);
 
     context.fillStyle = gradient;
     context.fillRect(0, 0, canvas.width, canvas.height);
@@ -121,7 +152,8 @@ var MinimalWeather = function(json) {
 
     var data = canvas.toDataURL("image/png");
 
-    appIcon.href = data;
+    iOSIcon.href = data;
+    androidIcon.href = data;
   };
 
   var self = this;

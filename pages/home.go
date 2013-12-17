@@ -11,6 +11,7 @@ import (
 	"net/http"
 	"net/url"
 	"os"
+	"regexp"
 	"strconv"
 	"strings"
 )
@@ -88,18 +89,29 @@ func (h *Homepage) handleUnit() {
 	if err == nil {
 		h.cw.Unit = unit_cookie.Value
 	} else {
-                if h.cw.City.Country == "US" {
-                        h.cw.Unit = "F"
-                } else {
-                        h.cw.Unit = "C"
-                }
+		if h.cw.City.Country == "US" {
+			h.cw.Unit = "F"
+		} else {
+			h.cw.Unit = "C"
+		}
 	}
 
-	// Based on @chadot knowladge < 17 is minimun to confort temperature
-	if h.cw.Weather.Temperature < 17 {
-		h.cw.Cold = true
+	// Finds if it's night
+	night, _ := regexp.MatchString("night", h.cw.Weather.Icon)
+
+	if night {
+		h.cw.Gradient = "night_"
 	} else {
-		h.cw.Cold = false
+		h.cw.Gradient = "day_"
+	}
+
+	switch {
+	case h.cw.Weather.Temperature < 17:
+		h.cw.Gradient = h.cw.Gradient + "cold"
+	case h.cw.Weather.Temperature > 17 && h.cw.Weather.Temperature < 21:
+		h.cw.Gradient = h.cw.Gradient + "normal"
+	case h.cw.Weather.Temperature > 21:
+		h.cw.Gradient = h.cw.Gradient + "hot"
 	}
 
 	if h.cw.Unit == "F" {
