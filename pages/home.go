@@ -12,9 +12,9 @@ import (
 	"net/http"
 	"net/url"
 	"os"
-	"regexp"
 	"strconv"
 	"strings"
+	"time"
 )
 
 type Homepage struct {
@@ -98,7 +98,9 @@ func (h *Homepage) handleUnit() {
 	}
 
 	// Finds if it's night
-	night, _ := regexp.MatchString("night", h.cw.Weather.Icon)
+	t := time.Unix(int64(h.cw.Weather.Time), 0)
+	hour := t.Hour()
+	night := hour >= 20 || hour <= 8
 
 	if night {
 		h.cw.Gradient = "night_"

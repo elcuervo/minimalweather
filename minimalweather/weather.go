@@ -19,6 +19,7 @@ type Weather struct {
 
 	Condition     string  `json:"condition"`
 	Icon          string  `json:"icon"`
+	Time          float64 `json:"time"`
 	Temperature   float64 `json:"temperature"`
 	RainIntensity float64 `json:"rain_intensity"`
 	BringUmbrella bool    `json:"bring_umbrella"`
@@ -85,6 +86,7 @@ func GetWeather(coords Coordinates) chan Weather {
 
 			weather := &Weather{
 				Coordinates:   coords,
+				Time:          f.Currently.Time,
 				Condition:     f.Currently.Summary,
 				Icon:          f.Currently.Icon,
 				Temperature:   f.Currently.ApparentTemperature,
