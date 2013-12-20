@@ -100,6 +100,7 @@ func (h *Homepage) handleUnit() {
 	// Finds if it's night
 	t := time.Unix(int64(h.cw.Weather.Time), 0)
 	hour := t.Hour()
+	log.Println("Current time is:", hour)
 	night := hour >= 20 || hour <= 8
 
 	if night {
