@@ -100,7 +100,7 @@ func (h *Homepage) handleUnit() {
 	// Finds if it's night
 	t := time.Unix(int64(h.cw.Weather.Time), 0)
 	location, err := time.LoadLocation(h.cw.Weather.Timezone)
-	local_time := time.Date(t.Year(), time.Month(t.Month()), t.Day(), t.Hour(), t.Minute(), 0, 0, location)
+	local_time := t.In(location)
 
 	hour := local_time.Hour()
 	log.Println("Current time is:", hour)
