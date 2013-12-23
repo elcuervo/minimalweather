@@ -91,6 +91,7 @@ func findCity(l LookupInformation, out chan City) {
 		}
 
 		if err != nil {
+                        log.Println("city.go:94", err)
 			location = &City{Name: "Unknown", Error: err}
 		} else {
 			log.Printf("Checking city: %s\n", city.Name)
@@ -103,7 +104,7 @@ func findCity(l LookupInformation, out chan City) {
 		_, err = c.Do("SET", l.Key(), json_response)
 
 		if err != nil {
-			log.Println(err)
+                        log.Println("city.go:106", err)
 		}
 
 		out <- *location
