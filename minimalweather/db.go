@@ -39,5 +39,3 @@ var Pool = &redis.Pool{
 		return err
 	},
 }
-
-var c = Pool.Get()

@@ -27,6 +27,9 @@ type Weather struct {
 }
 
 func ClearWeatherCache() {
+        c := Pool.Get()
+        defer c.Close()
+
 	pattern := fmt.Sprintf("%s*", weather_prefix)
 	keys, err := redis.Values(c.Do("KEYS", pattern))
 
@@ -40,6 +43,9 @@ func ClearWeatherCache() {
 }
 
 func GetWeather(coords Coordinates) chan Weather {
+        c := Pool.Get()
+        defer c.Close()
+
 	city_weather := make(chan Weather)
 	key := fmt.Sprintf("%s%f,%f", weather_prefix, coords.Lat, coords.Lng)
 	cached_weather, err := c.Do("GET", key)

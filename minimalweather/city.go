@@ -21,6 +21,9 @@ type City struct {
 }
 
 func ClearCityCache() {
+        c := Pool.Get()
+        defer c.Close()
+
 	pattern := fmt.Sprintf("%s*", city_prefix)
 	keys, err := redis.Values(c.Do("KEYS", pattern))
 
@@ -60,6 +63,9 @@ func (l *LookupInformation) byCoords() string {
 }
 
 func findCity(l LookupInformation, out chan City) {
+        c := Pool.Get()
+        defer c.Close()
+
 	cached_city, err := c.Do("GET", l.Key())
 
 	if err != nil {
