@@ -44,7 +44,6 @@ func ClearWeatherCache() {
 
 func GetWeather(coords Coordinates) chan Weather {
         c := Pool.Get()
-        defer c.Close()
 
 	city_weather := make(chan Weather)
 	key := fmt.Sprintf("%s%f,%f", weather_prefix, coords.Lat, coords.Lng)
@@ -55,6 +54,7 @@ func GetWeather(coords Coordinates) chan Weather {
 	}
 
 	go func() {
+                defer c.Close()
 		if cached_weather != nil {
 			var weather Weather
 

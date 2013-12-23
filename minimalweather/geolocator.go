@@ -34,7 +34,6 @@ func ClearGeolocationCache() {
 
 func GetLocation(ip string) chan geoip.Geolocation {
         c := Pool.Get()
-        defer c.Close()
 
 	geo_chann := make(chan geoip.Geolocation)
 
@@ -46,6 +45,7 @@ func GetLocation(ip string) chan geoip.Geolocation {
 	}
 
 	go func() {
+                defer c.Close()
 		if cached_geo != nil {
 			var geolocation geoip.Geolocation
 			log.Println("Geo from cached")
