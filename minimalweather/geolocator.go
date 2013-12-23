@@ -17,8 +17,8 @@ var (
 )
 
 func ClearGeolocationCache() {
-        c := Pool.Get()
-        defer c.Close()
+	c := Pool.Get()
+	defer c.Close()
 
 	pattern := fmt.Sprintf("%s*", location_prefix)
 	keys, err := redis.Values(c.Do("KEYS", pattern))
@@ -33,7 +33,7 @@ func ClearGeolocationCache() {
 }
 
 func GetLocation(ip string) chan geoip.Geolocation {
-        c := Pool.Get()
+	c := Pool.Get()
 
 	geo_chann := make(chan geoip.Geolocation)
 
@@ -45,7 +45,7 @@ func GetLocation(ip string) chan geoip.Geolocation {
 	}
 
 	go func() {
-                defer c.Close()
+		defer c.Close()
 		if cached_geo != nil {
 			var geolocation geoip.Geolocation
 			log.Println("Geo from cached")

@@ -21,8 +21,8 @@ type City struct {
 }
 
 func ClearCityCache() {
-        c := Pool.Get()
-        defer c.Close()
+	c := Pool.Get()
+	defer c.Close()
 
 	pattern := fmt.Sprintf("%s*", city_prefix)
 	keys, err := redis.Values(c.Do("KEYS", pattern))
@@ -63,8 +63,8 @@ func (l *LookupInformation) byCoords() string {
 }
 
 func findCity(l LookupInformation, out chan City) {
-        c := Pool.Get()
-        defer c.Close()
+	c := Pool.Get()
+	defer c.Close()
 
 	cached_city, err := c.Do("GET", l.Key())
 
@@ -97,7 +97,7 @@ func findCity(l LookupInformation, out chan City) {
 		}
 
 		if err != nil {
-                        log.Println("city.go:94", err)
+			log.Println("city.go:94", err)
 			location = &City{Name: "Unknown", Error: err}
 		} else {
 			log.Printf("Checking city: %s\n", city.Name)
@@ -110,7 +110,7 @@ func findCity(l LookupInformation, out chan City) {
 		_, err = c.Do("SET", l.Key(), json_response)
 
 		if err != nil {
-                        log.Println("city.go:106", err)
+			log.Println("city.go:106", err)
 		}
 
 		out <- *location
