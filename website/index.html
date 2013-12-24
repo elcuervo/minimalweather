@@ -113,11 +113,11 @@
   <div id="container" class="{{ .Gradient }} pure-g-r">
     <div class="pure-u-1-2 minimal_weather">
         <div id="weather_conditions" class="pure-g-r">
-          <div class="pure-u-1-1" id="weather_icon">
+          <div class="pure-u-1-1 animated fadeInDown" id="weather_icon">
           <div id="condition_icon" class="icon-{{ .Weather.Icon }}"></div>
           </div>
 
-          <div class="pure-g-r" id="weather_temperature">
+          <div class="pure-g-r animated fadeInUp" id="weather_temperature">
           <span class="temperature">{{ .Weather.Temperature }}</span>
           <span class="weather_scale">&deg;{{ .Unit }}</span>
             {{ if .Weather.BringUmbrella }}
@@ -129,7 +129,7 @@
           </div>
         </div>
 
-        <div id="city_name">{{.City.Name}}</div>
+        <div id="city_name" class="animated fadeInUp">{{.City.Name}}</div>
         <img src="/assets/img/drag.png" id="drag" alt="drag" class="fadeOut">
     </div>
 

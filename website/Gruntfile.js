@@ -31,6 +31,7 @@ module.exports = function(grunt) {
             "assets/css/pure.css",
             "assets/css/icons.css",
             "assets/css/styles.css",
+            "assets/css/animations.css",
 
             "assets/js/libs/snapjs/snap.css"
           ]
