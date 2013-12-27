@@ -267,6 +267,8 @@ footer {
 }
 
 .minimal_weather {
+  user-select: none;
+  -webkit-user-select: none;
   width: 50%;
   height: 60%;
   margin: auto;
