@@ -1,9 +1,11 @@
 package routes
 
 import (
+	"net/http"
+	"time"
+
 	"github.com/elcuervo/minimalweather/pages"
 	"github.com/gorilla/mux"
-	"net/http"
 )
 
 var api = new(pages.API)
@@ -26,6 +28,14 @@ func isOk(r *http.Request, rm *mux.RouteMatch) bool {
 	return allowed
 }
 
+func app(w http.ResponseWriter, req *http.Request) {
+	expire := time.Now().Add(60 * 24 * 60 * 60 * 1000)
+	cookie := http.Cookie{Name: "mw-desktop", Value: "1", Path: "/", Expires: expire, MaxAge: 86400}
+
+	http.SetCookie(w, &cookie)
+	http.Redirect(w, req, "/", 301)
+}
+
 func Handler() *mux.Router {
 	r := mux.NewRouter()
 
@@ -35,6 +45,7 @@ func Handler() *mux.Router {
 
 	r.PathPrefix("/assets").Handler(http.FileServer(http.Dir("./website/")))
 	r.HandleFunc("/about", about.Render).Methods("GET")
+	r.HandleFunc("/app", app).Methods("GET")
 	r.HandleFunc("/", homepage).Methods("GET")
 
 	return r
